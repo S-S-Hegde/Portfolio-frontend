@@ -63,10 +63,10 @@ export const MoonKnightSky: React.FC = () => {
     starGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
 
     const starMaterial = new THREE.PointsMaterial({
-      size: 1.2,
+      size: 2.0,
       vertexColors: true,
       transparent: true,
-      opacity: 0.9,
+      opacity: 1.0,
       sizeAttenuation: true,
       blending: THREE.AdditiveBlending
     });

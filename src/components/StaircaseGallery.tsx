@@ -1,29 +1,38 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, transform } from 'framer-motion';
-import { Project } from '../types';
+
+export interface JourneyItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  tags: string[];
+}
 
 interface StaircaseCardProps {
-  item: Project;
+  item: JourneyItem;
   index: number;
   scrollYProgress: any;
   totalItems: number;
 }
 
 const StaircaseCard: React.FC<StaircaseCardProps> = ({ item, index, scrollYProgress, totalItems }) => {
-  const step = 1 / totalItems;
-  const start = index * step;
+  // Reserve the first 15% of scroll for the title text
+  const scrollOffset = 0.15;
+  const step = (1 - scrollOffset) / totalItems;
+  const start = scrollOffset + (index * step);
   const end = start + step;
 
   // The rotation curves the element like a spiral
   const rotateY = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.15, end + 0.15], [75, -75]));
-  const scale = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, start, end, end + 0.2], [0.4, 1, 1, 0.4]));
-  const opacity = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, start, end, end + 0.2], [0, 1, 1, 0]));
+  const scale = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.1, start, end, end + 0.1], [0.3, 1, 1, 0.3]));
+  const opacity = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.1, start, end, end + 0.1], [0, 1, 1, 0]));
   
   // They start high and translate down
-  const translateY = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, end + 0.2], [400, -400]));
+  const translateY = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, end + 0.2], [500, -500]));
   
   // Translating Z pushes it back when it's at the edges
-  const translateZ = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, start + (step/2), end + 0.2], [-800, 150, -800]));
+  const translateZ = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, start + (step/2), end + 0.2], [-1000, 150, -1000]));
 
   return (
     <motion.div
@@ -61,7 +70,7 @@ const StaircaseCard: React.FC<StaircaseCardProps> = ({ item, index, scrollYProgr
   );
 };
 
-export const StaircaseGallery: React.FC<{ items: Project[] }> = ({ items }) => {
+export const StaircaseGallery: React.FC<{ items: JourneyItem[] }> = ({ items }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -69,7 +78,7 @@ export const StaircaseGallery: React.FC<{ items: Project[] }> = ({ items }) => {
   });
 
   return (
-    <div ref={containerRef} className="relative w-full" style={{ height: `${items.length * 100}vh` }}>
+    <div ref={containerRef} className="relative w-full" style={{ height: `${items.length * 150}vh` }}>
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden flex-col">
         <motion.div 
            style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]) }}
