@@ -20,6 +20,7 @@ import { SkillsPage } from './pages/SkillsPage';
 import { EducationPage } from './pages/EducationPage';
 import { TerminalPage } from './pages/TerminalPage';
 import { ContactPage } from './pages/ContactPage';
+import { JourneyPage } from './pages/JourneyPage';
 
 import { Project } from './types';
 import { PROJECTS } from './data/portfolioData';
@@ -166,6 +167,14 @@ const AppContent: React.FC = () => {
               element={
                 <PageTransition>
                   <ContactPage />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/journey"
+              element={
+                <PageTransition>
+                  <JourneyPage />
                 </PageTransition>
               }
             />

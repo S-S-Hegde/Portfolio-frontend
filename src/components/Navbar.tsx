@@ -39,6 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
     { label: 'Skills', path: '/skills' },
     { label: 'Education', path: '/education' },
     { label: 'Terminal', path: '/terminal' },
+    { label: 'Journey', path: '/journey' },
     { label: 'Contact', path: '/contact' },
   ];
 
