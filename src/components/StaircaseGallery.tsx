@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, transform } from 'framer-motion';
 import { Project } from '../types';
 
 interface StaircaseCardProps {
@@ -15,15 +15,15 @@ const StaircaseCard: React.FC<StaircaseCardProps> = ({ item, index, scrollYProgr
   const end = start + step;
 
   // The rotation curves the element like a spiral
-  const rotateY = useTransform(scrollYProgress, [start - 0.15, end + 0.15], [75, -75]);
-  const scale = useTransform(scrollYProgress, [start - 0.2, start, end, end + 0.2], [0.4, 1, 1, 0.4]);
-  const opacity = useTransform(scrollYProgress, [start - 0.2, start, end, end + 0.2], [0, 1, 1, 0]);
+  const rotateY = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.15, end + 0.15], [75, -75]));
+  const scale = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, start, end, end + 0.2], [0.4, 1, 1, 0.4]));
+  const opacity = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, start, end, end + 0.2], [0, 1, 1, 0]));
   
   // They start high and translate down
-  const translateY = useTransform(scrollYProgress, [start - 0.2, end + 0.2], [400, -400]);
+  const translateY = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, end + 0.2], [400, -400]));
   
   // Translating Z pushes it back when it's at the edges
-  const translateZ = useTransform(scrollYProgress, [start - 0.2, start + (step/2), end + 0.2], [-800, 150, -800]);
+  const translateZ = useTransform(scrollYProgress, (v: number) => transform(v, [start - 0.2, start + (step/2), end + 0.2], [-800, 150, -800]));
 
   return (
     <motion.div
