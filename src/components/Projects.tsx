@@ -77,13 +77,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject, showSandbox
                 cursorText="INSPECT"
                 className="group relative rounded-3xl bg-[#090D14] border border-white/10 hover:border-cyan-500/40 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_10px_50px_rgba(0,240,255,0.12)] overflow-hidden h-full"
               >
-                {/* Accent top gradient rim */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 opacity-80 group-hover:opacity-100"
-                  style={{
-                    background: `linear-gradient(90deg, transparent, ${project.accentColor}, transparent)`,
-                  }}
-                />
 
                 {/* Header info */}
                 <div>
