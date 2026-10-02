@@ -104,6 +104,43 @@ export const PROJECTS: Project[] = [
     },
     demoUrl: "https://tourease-six.vercel.app",
     githubUrl: "https://github.com/S-S-Hegde"
+  },
+  {
+    id: "expense-tracker",
+    title: "Expense Tracker",
+    subtitle: "Personal Finance Management & Budget Analytics Dashboard",
+    period: "Completed Project",
+    category: "Full-Stack Web",
+    featured: true,
+    accentColor: "#F59E0B",
+    iconName: "Wallet",
+    description: "A full-stack expense tracking application built with React, Node.js, Express.js, and MongoDB featuring categorized transaction management, interactive budget analytics, and real-time financial dashboards.",
+    fullOverview: "Expense Tracker is a personal finance management platform that enables users to log, categorize, and analyze their income and expenses. It features interactive charts and graphs for spending trends, category-based breakdowns, monthly/weekly budget tracking, and exportable financial reports. The application uses JWT-based authentication for secure multi-user access and MongoDB aggregation pipelines for real-time analytics computation.",
+    tags: ["React.js", "Node.js", "Express.js", "MongoDB", "Chart.js", "JWT Auth", "REST APIs", "Tailwind CSS"],
+    metrics: [
+      { label: "Analytics Engine", value: "MongoDB Aggregation" },
+      { label: "Visualization", value: "Chart.js Dashboards" },
+      { label: "Authentication", value: "JWT Secure Sessions" },
+      { label: "Data Management", value: "Full CRUD Operations" }
+    ],
+    bulletPoints: [
+      "Built a comprehensive expense tracking platform with user registration/login, transaction logging, and categorized financial record management.",
+      "Implemented interactive data visualization dashboards using Chart.js for spending trends, category breakdowns, and monthly budget comparisons.",
+      "Engineered MongoDB aggregation pipelines for real-time analytics including category-wise totals, income vs expense ratios, and trend forecasting.",
+      "Designed a responsive React UI with intuitive transaction forms, filterable history views, and exportable financial summary reports."
+    ],
+    architecture: {
+      title: "Expense Tracker Full-Stack Architecture",
+      flow: [
+        "User authenticates via JWT and accesses personalized financial dashboard",
+        "React frontend renders interactive Chart.js visualizations and transaction forms",
+        "Express.js API handles CRUD operations for transactions with validation middleware",
+        "MongoDB stores categorized transactions with aggregation pipelines for analytics",
+        "Dashboard computes real-time summaries: category breakdowns, trends, and budget alerts"
+      ],
+      details: "Full-stack MERN architecture with JWT authentication, RESTful API design, and MongoDB aggregation for real-time financial analytics."
+    },
+    githubUrl: "https://github.com/S-S-Hegde"
   }
 ];
 
