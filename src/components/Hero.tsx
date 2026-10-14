@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Terminal as TerminalIcon, Sparkles, ShieldCheck, Cpu, Code2, Download, ExternalLink, Mail } from 'lucide-react';
+import {
+  ArrowRight,
+  Terminal as TerminalIcon,
+  Mail,
+} from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { soundFx } from '../utils/audio';
@@ -13,11 +17,21 @@ const ROLES = [
   'AI Systems Integrator',
   'Backend & API Specialist',
   'MERN Stack Architect',
-  'LLM Pipeline Engineer'
+  'LLM Pipeline Engineer',
 ];
 
 export const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Scroll parallax — hero content floats at half the scroll speed
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const smoothScroll = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
+  const contentY = useTransform(smoothScroll, [0, 1], ['0%', '30%']);
+  const contentOpacity = useTransform(smoothScroll, [0, 0.6], [1, 0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,16 +43,23 @@ export const Hero: React.FC = () => {
   const marqueeItems = [
     'React.js', 'Node.js', 'Express.js', 'MongoDB', 'Gemini AI',
     'NVIDIA NIMs', 'Cohere', 'Mistral', 'Grok AI', 'JWT & RBAC',
-    'REST APIs', 'Tailwind CSS', 'TypeScript', 'Java', 'C (IIT Kanpur Elite)'
+    'REST APIs', 'Tailwind CSS', 'TypeScript', 'Java', 'C (IIT Kanpur Elite)',
   ];
 
   return (
-    <section className="min-h-[88vh] pt-28 sm:pt-32 pb-8 px-4 sm:px-6 lg:px-8 flex flex-col justify-between relative overflow-hidden">
-      {/* Background ambient lighting orbs with soft blur */}
+    <section
+      ref={heroRef}
+      className="relative min-h-[88vh] pt-28 sm:pt-32 pb-8 px-4 sm:px-6 lg:px-8 flex flex-col justify-between overflow-hidden"
+    >
+      {/* Background ambient */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] max-w-full bg-gradient-to-tr from-cyan-500/10 via-purple-600/10 to-transparent rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto w-full z-10 flex-1 flex flex-col justify-center">
-        {/* Top Status Pill */}
+      {/* Parallax content wrapper */}
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="max-w-6xl mx-auto w-full z-10 flex-1 flex flex-col justify-center"
+      >
+        {/* Status pill */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -51,7 +72,7 @@ export const Hero: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Main Title with Kinetic Split-Word Reveal */}
+        {/* Main title */}
         <div className="space-y-3.5">
           <h1 className="text-3xl sm:text-5xl lg:text-[3.65rem] font-black tracking-tight leading-[1.12] drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)]">
             <KineticText
@@ -61,7 +82,7 @@ export const Hero: React.FC = () => {
             />
           </h1>
 
-          {/* Dynamic Role Flipper with clean spacing */}
+          {/* Role flipper */}
           <div className="flex items-center flex-wrap gap-2 text-base sm:text-xl font-mono text-slate-200 min-h-[32px] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             <span className="text-cyan-400 font-bold">&gt;</span>
             <span className="text-slate-300">I am a </span>
@@ -77,13 +98,20 @@ export const Hero: React.FC = () => {
             </motion.span>
           </div>
 
-          {/* Bio paragraph with high-contrast text */}
+          {/* Bio */}
           <p className="text-slate-200 text-sm sm:text-base max-w-2xl leading-relaxed pt-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
-            Hi, I&apos;m <strong className="text-white font-bold">{PERSONAL_INFO.name}</strong>. Currently pursuing Information Science & Engineering at <strong className="text-white font-semibold">SDM Institute of Technology (CGPA 8.31)</strong>. Creator of <strong className="text-cyan-300 font-semibold">VeriProof</strong> (forensic AI candidate verification platform) and <strong className="text-emerald-300 font-semibold">TourEase</strong>.
+            Hi, I&apos;m <strong className="text-white font-bold">{PERSONAL_INFO.name}</strong>.
+            Currently pursuing Information Science & Engineering at{' '}
+            <strong className="text-white font-semibold">
+              SDM Institute of Technology (CGPA 8.31)
+            </strong>
+            . Creator of <strong className="text-cyan-300 font-semibold">VeriProof</strong> (forensic
+            AI candidate verification platform) and{' '}
+            <strong className="text-emerald-300 font-semibold">TourEase</strong>.
           </p>
         </div>
 
-        {/* Action Buttons Bar with Magnetic Tags */}
+        {/* Action buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -151,7 +179,7 @@ export const Hero: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Real-time Quick Stats 3D Tilt HUD Cards */}
+        {/* HUD stat cards */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
@@ -171,22 +199,16 @@ export const Hero: React.FC = () => {
                 <span className="text-xl sm:text-2xl font-black text-white group-hover:text-cyan-300 transition-colors">
                   {stat.value}
                 </span>
-                <span className="text-xs font-mono text-cyan-400 font-bold">
-                  {stat.suffix}
-                </span>
+                <span className="text-xs font-mono text-cyan-400 font-bold">{stat.suffix}</span>
               </div>
-              <p className="text-xs font-semibold text-slate-200 mt-0.5">
-                {stat.label}
-              </p>
-              <p className="text-[10px] text-slate-400 font-mono mt-0.5 truncate">
-                {stat.detail}
-              </p>
+              <p className="text-xs font-semibold text-slate-200 mt-0.5">{stat.label}</p>
+              <p className="text-[10px] text-slate-400 font-mono mt-0.5 truncate">{stat.detail}</p>
             </TiltCard>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Infinite Tech Marquee with balanced spacing */}
+      {/* Infinite marquee strip */}
       <div className="w-full pt-10 pb-2 overflow-hidden mask-fade">
         <div className="flex gap-4 animate-marquee whitespace-nowrap">
           {[...marqueeItems, ...marqueeItems].map((item, idx) => (
