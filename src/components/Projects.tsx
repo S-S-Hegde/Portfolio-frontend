@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FolderGit2, ExternalLink, Sparkles, Layers, ShieldCheck, Compass, ArrowUpRight, Cpu, CheckCircle2 } from 'lucide-react';
+import { FolderGit2, ExternalLink, Sparkles, Layers, ShieldCheck, Compass, Wallet, ArrowUpRight, Cpu, CheckCircle2 } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
 import { PROJECTS } from '../data/portfolioData';
+import { ProjectMockupVisual } from './ProjectMockupVisual';
 import { Project } from '../types';
 import { soundFx } from '../utils/audio';
 import { TiltCard } from './TiltCard';
@@ -62,11 +63,12 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject, showSandbox
           </div>
         </div>
 
-        {/* Project 3D Tilt Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Project 3D Tilt Cards Grid (Balanced AUGE-style layout) */}
+        <div className={`grid gap-6 sm:gap-8 ${filter === 'All' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 md:grid-cols-2'}`}>
           {filteredProjects.map((project, idx) => {
             const isVeriProof = project.id === 'veriproof';
-            const Icon = isVeriProof ? ShieldCheck : Compass;
+            const isTourEase = project.id === 'tourease';
+            const Icon = isVeriProof ? ShieldCheck : isTourEase ? Compass : Wallet;
 
             return (
               <TiltCard
@@ -75,22 +77,30 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject, showSandbox
                 glareOpacity={0.18}
                 glareColor={project.accentColor ? `${project.accentColor}40` : 'rgba(0, 240, 255, 0.4)'}
                 cursorText="INSPECT"
-                className="group relative rounded-3xl bg-[#090D14] border border-white/10 hover:border-cyan-500/40 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_10px_50px_rgba(0,240,255,0.12)] overflow-hidden h-full"
+                className="group relative rounded-3xl bg-[#090D14] border border-white/10 hover:border-cyan-500/40 p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_10px_50px_rgba(0,240,255,0.12)] overflow-hidden h-full"
               >
-
                 {/* Header info */}
-                <div>
-                  <div className="flex items-center justify-between gap-4 mb-4">
+                <div className="space-y-4">
+                  {/* AUGE Visual Cover Mockup */}
+                  <div className="overflow-hidden rounded-2xl">
+                    <ProjectMockupVisual
+                      projectId={project.id}
+                      accentColor={project.accentColor}
+                      category={project.category}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                       <div
-                        className="p-3 rounded-2xl border transition-transform duration-300 group-hover:scale-110"
+                        className="p-2.5 rounded-2xl border transition-transform duration-300 group-hover:scale-110"
                         style={{
                           backgroundColor: `${project.accentColor}15`,
                           borderColor: `${project.accentColor}40`,
                           color: project.accentColor,
                         }}
                       >
-                        <Icon className="w-6 h-6" />
+                        <Icon className="w-5 h-5" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
@@ -102,7 +112,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject, showSandbox
                           </span>
                           <span className="text-[11px] text-slate-500 font-mono">• {project.period}</span>
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-black text-white group-hover:text-cyan-200 transition-colors">
+                        <h3 className="text-xl sm:text-2xl font-black text-white group-hover:text-cyan-200 transition-colors">
                           {project.title}
                         </h3>
                       </div>
