@@ -80,7 +80,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
             data-lenis-prevent-touch
             onWheel={(e) => e.stopPropagation()}
             onTouchMove={(e) => e.stopPropagation()}
-            className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto overscroll-contain bg-[#0A0D14] border border-cyan-500/30 rounded-3xl shadow-[0_0_80px_rgba(0,240,255,0.2)] p-6 md:p-8 custom-scrollbar z-10"
+            className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto overscroll-contain bg-[#0A0D14] border border-white/15 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.85)] p-6 md:p-8 custom-scrollbar z-10"
             style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-y' }}
           >
             {/* Close Button */}
@@ -100,9 +100,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
                 <span
                   className="px-3.5 py-1 text-xs font-mono font-semibold rounded-full border shadow-sm"
                   style={{
-                    color: project.accentColor,
-                    borderColor: `${project.accentColor}50`,
-                    backgroundColor: `${project.accentColor}15`,
+                    color: project.accentColor || '#CCFF00',
+                    borderColor: `${project.accentColor || '#CCFF00'}50`,
+                    backgroundColor: `${project.accentColor || '#CCFF00'}15`,
                   }}
                 >
                   {project.category}
@@ -115,7 +115,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">
                 {project.title}
               </h2>
-              <p className="text-sm md:text-base text-cyan-300 font-medium mb-7 leading-relaxed">
+              <p className="text-sm md:text-base text-accent-lime font-medium mb-7 leading-relaxed">
                 {project.subtitle}
               </p>
             </div>
@@ -147,7 +147,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
                     }}
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-mono font-semibold whitespace-nowrap transition-all ${
                       isActive
-                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-[0_0_15px_rgba(0,240,255,0.2)]'
+                        ? 'bg-accent-lime/15 text-accent-lime border border-accent-lime/40 shadow-[0_0_15px_rgba(204,255,0,0.2)]'
                         : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
                     }`}
                   >
@@ -438,7 +438,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => soundFx.playClick()}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-sm transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent-lime hover:bg-[#D9FF33] text-black font-semibold text-sm transition-all shadow-[0_0_20px_rgba(204,255,0,0.3)]"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Launch Live Demo

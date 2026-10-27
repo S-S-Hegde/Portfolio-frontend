@@ -80,44 +80,72 @@ export const ShaderCanvas: React.FC = () => {
         vec2 mouse = (u_mouse - 0.5);
         mouse.x *= aspect;
 
-        // Base time modulated by scroll velocity
-        float vBoost = clamp(u_velocity * 0.04, 0.0, 1.2);
-        float t = u_time * 0.12 + vBoost * 0.5;
+        // Dynamic scroll velocity boost
+        float vBoost = clamp(u_velocity * 0.05, 0.0, 1.5);
+        float t = u_time * 0.14 + vBoost * 0.45;
 
-        // Dynamic turbulence distortion scaled by velocity
-        float velocityWarp = sin(p.y * 3.5 + t * 2.0) * (vBoost * 0.15);
-        p.x += velocityWarp;
+        // Pointer distance and fluid drag
+        float distToMouse = length(p - mouse);
+        float mouseInteraction = smoothstep(0.65, 0.0, distToMouse);
+        vec2 mouseForce = normalize(p - mouse + 0.0001) * mouseInteraction * 0.12;
 
-        // Multi-octave organic fluid flow for Aurora ribbons
-        float n1 = snoise(p * (0.65 + vBoost * 0.1) + vec2(t * 0.16, -t * 0.13) + mouse * 0.20);
-        float n2 = snoise(p * 1.25 - vec2(t * 0.11, t * 0.15) + n1 * 0.38);
-        float n3 = snoise(p * 2.0 + vec2(-t * 0.07, t * 0.18) - n2 * 0.25);
+        vec2 coords = p + mouseForce;
+        coords.x += sin(coords.y * 3.2 + t * 1.8) * (vBoost * 0.12);
+
+        // Multi-octave organic 3D fluid ribbons
+        float n1 = snoise(coords * (0.75 + vBoost * 0.1) + vec2(t * 0.18, -t * 0.14));
+        float n2 = snoise(coords * 1.35 - vec2(t * 0.12, t * 0.16) + n1 * 0.35);
+        float n3 = snoise(coords * 2.2 + vec2(-t * 0.08, t * 0.20) - n2 * 0.28);
         float f = n1 * 0.50 + n2 * 0.35 + n3 * 0.15;
 
-        // Refined Dark Editorial Palette
-        vec3 colorBase  = vec3(0.031, 0.035, 0.047);   // #08090C Deep Obsidian
-        vec3 colorLime  = vec3(0.80, 1.0, 0.0);        // #CCFF00 Signature Electric Lime
-        vec3 colorSlate = vec3(0.15, 0.18, 0.24);      // Titanium Slate Mist
-        vec3 colorCyan  = vec3(0.0, 0.75, 0.90);       // Restrained Precision Cyan
+        // Approximate 3D surface normal gradient from noise for specular 3D depth
+        float eps = 0.015;
+        float nx = snoise(coords + vec2(eps, 0.0)) - snoise(coords - vec2(eps, 0.0));
+        float ny = snoise(coords + vec2(0.0, eps)) - snoise(coords - vec2(0.0, eps));
+        vec3 normal = normalize(vec3(-nx, -ny, eps * 4.0));
+        vec3 lightDir = normalize(vec3(mouse.x * 2.0, mouse.y * 2.0, 1.2));
+        float diffuse = max(dot(normal, lightDir), 0.0);
+        float specular = pow(max(dot(reflect(-lightDir, normal), vec3(0.0, 0.0, 1.0)), 0.0), 16.0);
+
+        // Refined Dark Editorial Color Tokens
+        vec3 colorBase      = vec3(0.031, 0.035, 0.047);  // #08090C Obsidian
+        vec3 colorLime      = vec3(0.80, 1.0, 0.0);       // #CCFF00 Electric Lime
+        vec3 colorTitanium  = vec3(0.88, 0.92, 0.98);     // Titanium Highlight
+        vec3 colorSlate     = vec3(0.12, 0.16, 0.24);     // Deep Graphite
+        vec3 colorCyanMist  = vec3(0.05, 0.55, 0.70);     // Subtle Cyber Cyan
 
         vec3 color = colorBase;
 
-        // Subtle fluid contour waves (calm, non-distracting)
-        float limeWave = sin(f * 2.2 + p.x * 0.65 - p.y * 0.45 + t * 0.6);
-        color = mix(color, colorLime, smoothstep(0.45, 0.98, limeWave) * 0.08);
+        // Wave Layer 1: Electric Lime Fluid Ribbon
+        float limeWave = sin(f * 2.6 + coords.x * 0.75 - coords.y * 0.55 + t * 0.75);
+        float limeMask = smoothstep(0.40 - vBoost * 0.05, 0.95, limeWave);
+        color = mix(color, colorLime, limeMask * (0.18 + vBoost * 0.08));
 
-        float slateWave = cos(f * 1.8 - p.x * 0.55 + p.y * 0.65 + t * 0.5);
-        color = mix(color, colorSlate, smoothstep(0.35, 0.90, slateWave) * 0.12);
+        // Wave Layer 2: Titanium Specular Contour
+        float titaniumWave = cos(f * 2.2 - coords.x * 0.60 + coords.y * 0.70 + t * 0.60);
+        float titaniumMask = smoothstep(0.35, 0.92, titaniumWave);
+        color = mix(color, colorTitanium, titaniumMask * 0.10);
 
-        float cyanWave = sin(n2 * 1.6 + t * 0.40 - p.x * 0.35);
-        color = mix(color, colorCyan, smoothstep(0.40, 0.95, cyanWave) * 0.06);
+        // Wave Layer 3: Graphite Slate Depth
+        float slateWave = sin(n2 * 2.0 + t * 0.45 - coords.x * 0.40);
+        float slateMask = smoothstep(0.20, 0.85, slateWave);
+        color = mix(color, colorSlate, slateMask * 0.20);
 
-        // Subtle pointer reaction
-        float distToMouse = length(p - mouse);
-        float mouseGlow = smoothstep(0.55, 0.0, distToMouse);
-        color += colorLime * (mouseGlow * 0.04);
+        // Wave Layer 4: Cyan Mist Ribbon
+        float cyanWave = cos(n3 * 1.8 - t * 0.35 + coords.y * 0.45);
+        float cyanMask = smoothstep(0.42, 0.96, cyanWave);
+        color = mix(color, colorCyanMist, cyanMask * 0.07);
 
-        gl_FragColor = vec4(color, 0.45);
+        // Interactive Mouse Proximity Ripple Wave
+        float mouseRipple = sin(distToMouse * 14.0 - u_time * 2.4) * 0.5 + 0.5;
+        vec3 rippleColor = mix(colorLime, colorTitanium, mouseRipple);
+        color += rippleColor * (mouseInteraction * (0.16 + vBoost * 0.06));
+
+        // 3D Specular Highlight glint
+        color += colorLime * (specular * 0.22);
+        color += colorTitanium * (diffuse * 0.08);
+
+        gl_FragColor = vec4(color, 0.82);
       }
     `;
 
@@ -223,7 +251,7 @@ export const ShaderCanvas: React.FC = () => {
   return (
     <div
       ref={mountRef}
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-40"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-85"
       style={{ willChange: 'transform' }}
     />
   );

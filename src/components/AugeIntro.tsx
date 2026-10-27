@@ -105,30 +105,30 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
         >
           {/* Zero-Jank Hardware-Accelerated Ambient Mesh (Pure CSS Radial Gradients, NO blur filters) */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {/* Top-Right Cyber Cyan Radial Flare */}
+            {/* Top-Right Signature Electric Lime Flare */}
             <div
               className="absolute -top-32 -right-32 w-[650px] h-[650px] rounded-full pointer-events-none opacity-40 transform-gpu"
               style={{
                 background:
-                  'radial-gradient(circle, rgba(0, 240, 255, 0.28) 0%, rgba(0, 160, 255, 0.12) 38%, transparent 70%)',
+                  'radial-gradient(circle, rgba(204, 255, 0, 0.22) 0%, rgba(204, 255, 0, 0.06) 42%, transparent 70%)',
               }}
             />
 
-            {/* Bottom-Left Cyberpunk Violet Radial Flare */}
+            {/* Bottom-Left Titanium Graphite Flare */}
             <div
-              className="absolute -bottom-32 -left-32 w-[700px] h-[700px] rounded-full pointer-events-none opacity-45 transform-gpu"
+              className="absolute -bottom-32 -left-32 w-[700px] h-[700px] rounded-full pointer-events-none opacity-40 transform-gpu"
               style={{
                 background:
-                  'radial-gradient(circle, rgba(138, 43, 226, 0.26) 0%, rgba(79, 70, 229, 0.12) 42%, transparent 72%)',
+                  'radial-gradient(circle, rgba(148, 163, 184, 0.16) 0%, rgba(71, 85, 105, 0.08) 45%, transparent 72%)',
               }}
             />
 
-            {/* Center Razor Emerald Engine Glow */}
+            {/* Center Subtle Cyber Glow */}
             <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none opacity-20 transform-gpu"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none opacity-15 transform-gpu"
               style={{
                 background:
-                  'radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 68%)',
+                  'radial-gradient(circle, rgba(204, 255, 0, 0.18) 0%, transparent 68%)',
               }}
             />
 
@@ -156,14 +156,14 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
           <div className="relative z-10 flex items-center justify-between text-xs font-mono text-slate-400">
             <div className="flex items-center gap-3">
               <div className="relative flex items-center justify-center">
-                <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping opacity-75 absolute" />
-                <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00F0FF]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#CCFF00] animate-ping opacity-75 absolute" />
+                <span className="w-2 h-2 rounded-full bg-[#CCFF00] shadow-[0_0_10px_#CCFF00]" />
               </div>
               <div className="flex items-center gap-2">
                 <span className="tracking-widest uppercase font-bold text-white">
-                  NEXUS LABS
+                  NEXUS CORE
                 </span>
-                <span className="text-cyan-400/60">//</span>
+                <span className="text-[#CCFF00]/60">//</span>
                 <span className="hidden sm:inline text-slate-400 text-[11px] tracking-wider">
                   ENTERPRISE ARCHITECTURE & AAA GAME TECH
                 </span>
@@ -174,7 +174,7 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
               <span className="px-2 py-0.5 rounded border border-white/10 bg-white/[0.02] text-slate-300">
                 FRAME: 144Hz SYNC
               </span>
-              <span className="px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-300">
+              <span className="px-2 py-0.5 rounded border border-[#CCFF00]/30 bg-[#CCFF00]/10 text-[#CCFF00]">
                 P99: &lt; 14ms
               </span>
               <span className="text-slate-500">SLA: 99.99%</span>
@@ -182,7 +182,7 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
 
             <button
               onClick={handleSkip}
-              className="px-3 py-1.5 rounded-lg border border-white/15 hover:border-cyan-400 text-[10px] uppercase font-mono tracking-wider text-slate-300 hover:text-cyan-300 transition-all hover:bg-cyan-500/10 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+              className="px-3 py-1.5 rounded-lg border border-white/15 hover:border-[#CCFF00] text-[10px] uppercase font-mono tracking-wider text-slate-300 hover:text-[#CCFF00] transition-all hover:bg-[#CCFF00]/10 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
             >
               SKIP [ESC]
             </button>
@@ -195,11 +195,11 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 mb-5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-cyan-500/40 text-[11px] sm:text-xs font-mono tracking-[0.22em] text-cyan-300 uppercase shadow-[0_0_20px_rgba(0,240,255,0.15)]"
+              className="inline-flex items-center gap-2 mb-5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#CCFF00]/40 text-[11px] sm:text-xs font-mono tracking-[0.22em] text-[#CCFF00] uppercase shadow-[0_0_20px_rgba(204,255,0,0.15)]"
             >
-              <span className="text-cyan-400 font-bold">&gt;&gt;</span>
+              <span className="text-[#CCFF00] font-bold">&gt;&gt;</span>
               <span>PRINCIPAL SYSTEMS ARCHITECT & REAL-TIME ENGINE DEV</span>
-              <span className="text-cyan-400 font-bold">&lt;&lt;</span>
+              <span className="text-[#CCFF00] font-bold">&lt;&lt;</span>
             </motion.div>
 
             {/* Giant Monolithic Name Reveal */}
@@ -246,11 +246,11 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
                 ENTERPRISE MICROSERVICES
               </span>
               <span className="text-white/20">•</span>
-              <span className="px-2.5 py-1 rounded bg-[#090D16] border border-cyan-500/30 text-cyan-300">
+              <span className="px-2.5 py-1 rounded bg-[#090D16] border border-[#CCFF00]/30 text-[#CCFF00]">
                 CUSTOM WEBGL / GLSL
               </span>
               <span className="text-white/20">•</span>
-              <span className="px-2.5 py-1 rounded bg-[#090D16] border border-emerald-500/30 text-emerald-300">
+              <span className="px-2.5 py-1 rounded bg-[#090D16] border border-white/10 text-slate-300">
                 ANTI-CHEAT & FORENSIC AI
               </span>
             </motion.div>
@@ -260,8 +260,8 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
           <div className="relative z-10 flex flex-col gap-3 max-w-4xl mx-auto w-full">
             <div className="flex items-end justify-between font-mono">
               <div className="space-y-1">
-                <span className="text-[10px] text-cyan-400 uppercase tracking-widest block font-bold flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="text-[10px] text-[#CCFF00] uppercase tracking-widest block font-bold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#CCFF00] animate-pulse" />
                   REAL-TIME TELEMETRY FEED
                 </span>
                 <span className="text-xs sm:text-sm text-slate-200 tracking-wide font-medium">
@@ -271,17 +271,17 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
 
               {/* High-Precision Numeric Counter */}
               <div className="text-right">
-                <span className="text-3xl sm:text-5xl font-black font-mono tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-white">
+                <span className="text-3xl sm:text-5xl font-black font-mono tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-[#CCFF00] via-white to-slate-200">
                   {String(progress).padStart(3, '0')}
                 </span>
-                <span className="text-cyan-400 font-mono text-sm ml-1 font-bold">%</span>
+                <span className="text-[#CCFF00] font-mono text-sm ml-1 font-bold">%</span>
               </div>
             </div>
 
             {/* Laser Progress Gauge */}
             <div className="relative h-[4px] w-full bg-white/10 rounded-full overflow-hidden">
               <div
-                className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400 shadow-[0_0_16px_#00F0FF] rounded-full transition-all duration-75 ease-out"
+                className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#CCFF00] via-white to-[#CCFF00] shadow-[0_0_16px_#CCFF00] rounded-full transition-all duration-75 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>

@@ -161,16 +161,16 @@ export const VeriProofSandbox: React.FC = () => {
   const Icon = selectedScenario.icon;
 
   return (
-    <div className="rounded-3xl bg-[#090D15] border border-cyan-500/30 p-6 md:p-8 shadow-[0_0_50px_rgba(0,240,255,0.08)] relative overflow-hidden">
+    <div className="rounded-3xl bg-[#0A0D14] border border-white/10 p-6 md:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.6)] relative overflow-hidden">
       {/* Ambient background glow */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-accent-lime/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header bar */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono mb-2">
-            <Activity className="w-3.5 h-3.5 animate-pulse text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-lime/10 border border-accent-lime/30 text-accent-lime text-xs font-mono mb-2">
+            <Activity className="w-3.5 h-3.5 animate-pulse text-accent-lime" />
             <span>INTERACTIVE FORENSIC ENGINE SANDBOX</span>
           </div>
           <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
@@ -193,7 +193,7 @@ export const VeriProofSandbox: React.FC = () => {
                 data-cursor-text="SELECT"
                 className={`px-3.5 py-2 rounded-xl text-xs font-mono flex items-center gap-2 transition-all ${
                   isSelected
-                    ? 'bg-cyan-500 text-black font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)] scale-[1.02]'
+                    ? 'bg-accent-lime text-black font-bold shadow-[0_0_20px_rgba(204,255,0,0.35)] scale-[1.02]'
                     : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
                 }`}
               >
@@ -211,7 +211,7 @@ export const VeriProofSandbox: React.FC = () => {
         <div className="lg:col-span-5 space-y-4 flex flex-col justify-between">
           <div className="space-y-3.5">
             <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10">
-              <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 mb-1">
+              <div className="flex items-center gap-2 text-xs font-mono text-accent-lime mb-1">
                 <Icon className="w-4 h-4" />
                 <span>{selectedScenario.category}</span>
               </div>
@@ -221,7 +221,7 @@ export const VeriProofSandbox: React.FC = () => {
 
             {/* Target Payload Terminal Preview */}
             <div className="p-3.5 rounded-xl bg-black/60 border border-white/10 font-mono text-[11px] text-slate-300">
-              <span className="text-cyan-400 font-bold block text-[10px] uppercase tracking-wider mb-1">
+              <span className="text-accent-lime font-bold block text-[10px] uppercase tracking-wider mb-1">
                 Test Ingestion Vector:
               </span>
               <p className="text-slate-400 truncate">{selectedScenario.payload}</p>
@@ -236,8 +236,8 @@ export const VeriProofSandbox: React.FC = () => {
               data-cursor-text="RUN AUDIT"
               className={`w-full py-3.5 px-6 rounded-2xl font-bold text-sm flex items-center justify-center gap-2.5 transition-all ${
                 isRunning
-                  ? 'bg-cyan-500/50 text-black cursor-wait'
-                  : 'bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black shadow-[0_0_30px_rgba(0,240,255,0.3)] hover:scale-[1.01]'
+                  ? 'bg-accent-lime/50 text-black cursor-wait'
+                  : 'bg-accent-lime hover:bg-[#D9FF33] text-black shadow-[0_0_25px_rgba(204,255,0,0.3)] hover:scale-[1.01]'
               }`}
             >
               {isRunning ? (
@@ -261,14 +261,14 @@ export const VeriProofSandbox: React.FC = () => {
           <div className="space-y-1.5">
             <div className="flex justify-between items-center text-xs font-mono">
               <span className="text-slate-400 flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5 text-cyan-400" />
+                <Zap className="w-3.5 h-3.5 text-accent-lime" />
                 <span>Verification State Pipeline</span>
               </span>
-              <span className="text-cyan-300 font-bold">{progress}%</span>
+              <span className="text-accent-lime font-bold">{progress}%</span>
             </div>
             <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/10">
               <motion.div
-                className="h-full bg-gradient-to-r from-cyan-400 to-purple-500"
+                className="h-full bg-gradient-to-r from-accent-lime via-white to-accent-lime"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.4 }}
@@ -286,7 +286,7 @@ export const VeriProofSandbox: React.FC = () => {
                   key={idx}
                   className={`p-3 rounded-xl border transition-all duration-300 ${
                     isActive
-                      ? 'bg-cyan-500/15 border-cyan-400 shadow-[0_0_15px_rgba(0,240,255,0.2)]'
+                      ? 'bg-accent-lime/15 border-accent-lime shadow-[0_0_15px_rgba(204,255,0,0.2)]'
                       : isPast
                       ? 'bg-emerald-500/10 border-emerald-500/40 text-slate-200'
                       : 'bg-white/[0.02] border-white/5 opacity-50'
@@ -301,7 +301,7 @@ export const VeriProofSandbox: React.FC = () => {
                   <p className="text-xs font-bold text-white truncate">{stage.title}</p>
                   <div className="mt-2 pt-1.5 border-t border-white/10 flex justify-between items-baseline">
                     <span className="text-[10px] text-slate-400 font-mono">{stage.metricLabel}</span>
-                    <span className="text-xs font-mono font-bold text-cyan-300">{stage.metric}</span>
+                    <span className="text-xs font-mono font-bold text-accent-lime">{stage.metric}</span>
                   </div>
                 </div>
               );
@@ -312,17 +312,17 @@ export const VeriProofSandbox: React.FC = () => {
           <div className="p-3.5 rounded-2xl bg-black/80 border border-white/10 font-mono text-xs max-h-36 overflow-y-auto space-y-1 scrollbar-thin">
             <div className="flex items-center justify-between text-[10px] text-slate-400 border-b border-white/10 pb-1 mb-1.5">
               <span className="flex items-center gap-1.5">
-                <Terminal className="w-3 h-3 text-cyan-400" />
+                <Terminal className="w-3 h-3 text-accent-lime" />
                 <span>Forensic Stream Output</span>
               </span>
-              <span className="text-emerald-400">● LIVE</span>
+              <span className="text-accent-lime">● LIVE</span>
             </div>
             {logs.map((log, idx) => (
               <div key={idx} className="text-slate-300 text-[11px] leading-relaxed">
                 {log.startsWith('[AUDIT_COMPLETE]') ? (
                   <span className="text-emerald-300 font-bold">{log}</span>
                 ) : log.startsWith('[STAGE') ? (
-                  <span className="text-cyan-300">{log}</span>
+                  <span className="text-accent-lime">{log}</span>
                 ) : (
                   <span className="text-slate-400">{log}</span>
                 )}
@@ -338,27 +338,27 @@ export const VeriProofSandbox: React.FC = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.4 }}
-                className="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/70 via-[#0A1220] to-purple-950/70 border border-cyan-400/50 shadow-[0_0_30px_rgba(0,240,255,0.25)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                className="p-4 rounded-2xl bg-gradient-to-r from-accent-lime/15 via-[#0A1220] to-emerald-950/40 border border-accent-lime/50 shadow-[0_0_30px_rgba(204,255,0,0.25)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-cyan-400 text-black font-extrabold flex-shrink-0">
+                  <div className="p-2.5 rounded-xl bg-accent-lime text-black font-extrabold flex-shrink-0">
                     <ShieldCheck className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono font-bold text-cyan-300 uppercase tracking-wide">
+                      <span className="text-xs font-mono font-bold text-accent-lime uppercase tracking-wide">
                         STATUS: {selectedScenario.verdict.status}
                       </span>
                       <span className="text-xs text-slate-400 font-mono">• Score: {selectedScenario.verdict.trustScore}%</span>
                     </div>
                     <p className="text-xs text-slate-200 mt-0.5">{selectedScenario.verdict.summary}</p>
-                    <span className="text-[10px] font-mono text-cyan-400/80 block mt-1">
-                      Token Hash: {selectedScenario.verdict.hash}
+                    <span className="text-[10px] font-mono text-slate-400 block mt-1">
+                      Token Hash: <code className="text-accent-lime">{selectedScenario.verdict.hash}</code>
                     </span>
                   </div>
                 </div>
 
-                <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-mono font-semibold self-end sm:self-center flex-shrink-0">
+                <span className="px-3 py-1 rounded-full bg-accent-lime/20 border border-accent-lime/40 text-accent-lime text-[11px] font-mono font-semibold self-end sm:self-center flex-shrink-0">
                   VP-CERTIFIED
                 </span>
               </motion.div>

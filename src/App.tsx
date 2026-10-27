@@ -28,16 +28,16 @@ const JourneyPage = React.lazy(() => import('./pages/JourneyPage').then((m) => (
 import { Project } from './types';
 import { PROJECTS } from './data/portfolioData';
 
-// AUGE-style Glassmorphic Lazy Loading Module Fallback
+// Modern Editorial Lazy Loading Module Fallback
 const AugeSuspenseFallback: React.FC = () => (
-  <div className="min-h-[70vh] flex flex-col items-center justify-center gap-4 text-cyan-400 font-mono text-xs select-none">
+  <div className="min-h-[70vh] flex flex-col items-center justify-center gap-4 text-accent-lime font-mono text-xs select-none">
     <div className="relative w-14 h-14 flex items-center justify-center">
-      <div className="absolute inset-0 rounded-full border-2 border-cyan-500/20 animate-ping" />
-      <div className="w-8 h-8 rounded-full border-2 border-t-cyan-400 border-r-purple-500 border-b-transparent border-l-transparent animate-spin" />
+      <div className="absolute inset-0 rounded-full border-2 border-accent-lime/20 animate-ping" />
+      <div className="w-8 h-8 rounded-full border-2 border-t-accent-lime border-r-white border-b-transparent border-l-transparent animate-spin" />
     </div>
     <div className="flex flex-col items-center gap-1">
-      <span className="tracking-[0.2em] uppercase font-bold text-slate-300">STREAMING VIEW // AUGE ARCH</span>
-      <span className="text-[10px] text-cyan-500/80">LAT 12.97° N // SHRIDHAR.IO</span>
+      <span className="tracking-[0.2em] uppercase font-bold text-slate-300">STREAMING VIEW // EDITORIAL ENGINE</span>
+      <span className="text-[10px] text-accent-lime/80">LAT 12.97° N // SHRIDHAR.IO</span>
     </div>
   </div>
 );
@@ -46,7 +46,7 @@ const AppContent: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [showIntro, setShowIntro] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
   const location = useLocation();
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -132,6 +132,11 @@ const AppContent: React.FC = () => {
 
       {/* Fluid Magnetic Glowing Cursor */}
       <CustomCursor />
+
+      {/* Editorial High-FPS Intro Preloader */}
+      <AnimatePresence>
+        {showIntro && <AugeIntro onComplete={() => setShowIntro(false)} />}
+      </AnimatePresence>
 
       {/* Multi-Page Navigation Header */}
       <Navbar onOpenCommandPalette={() => setIsCommandPaletteOpen(true)} />
