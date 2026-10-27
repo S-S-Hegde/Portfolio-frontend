@@ -107,7 +107,7 @@ export const CustomCursor: React.FC = () => {
     <>
       {/* Precision inner center dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-cyan-400 rounded-full pointer-events-none z-[9999] shadow-[0_0_10px_#00F0FF]"
+        className="fixed top-0 left-0 w-2 h-2 bg-accent-lime rounded-full pointer-events-none z-[9999] shadow-[0_0_8px_#CCFF00]"
         style={{
           x: dotX,
           y: dotY,
@@ -119,7 +119,7 @@ export const CustomCursor: React.FC = () => {
 
       {/* Trailing smooth magnetic aura & morphing pill */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9998] flex items-center justify-center rounded-full border border-cyan-400/40 backdrop-blur-[2px]"
+        className="fixed top-0 left-0 pointer-events-none z-[9998] flex items-center justify-center rounded-full border border-accent-lime/40 backdrop-blur-[2px]"
         style={{
           x: cursorX,
           y: cursorY,
@@ -127,29 +127,29 @@ export const CustomCursor: React.FC = () => {
           translateY: '-50%',
         }}
         animate={{
-          width: hovered ? Math.max(90, cursorText.length * 10 + 24) : isPointer ? 48 : 28,
-          height: hovered ? 38 : isPointer ? 48 : 28,
+          width: hovered ? Math.max(90, cursorText.length * 10 + 24) : isPointer ? 44 : 26,
+          height: hovered ? 36 : isPointer ? 44 : 26,
           borderRadius: hovered ? '9999px' : '50%',
           backgroundColor: hovered
-            ? 'rgba(0, 240, 255, 0.22)'
+            ? 'rgba(204, 255, 0, 0.18)'
             : isPointer
-            ? 'rgba(138, 43, 226, 0.16)'
-            : 'rgba(0, 240, 255, 0.04)',
-          borderColor: hovered ? 'rgba(0, 240, 255, 0.9)' : isPointer ? 'rgba(168, 85, 247, 0.65)' : 'rgba(56, 189, 248, 0.35)',
+            ? 'rgba(255, 255, 255, 0.08)'
+            : 'rgba(204, 255, 0, 0.03)',
+          borderColor: hovered ? '#CCFF00' : isPointer ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.2)',
           boxShadow: hovered
-            ? '0 0 30px rgba(0, 240, 255, 0.45)'
+            ? '0 0 25px rgba(204, 255, 0, 0.35)'
             : isPointer
-            ? '0 0 18px rgba(168, 85, 247, 0.35)'
+            ? '0 0 15px rgba(255, 255, 255, 0.2)'
             : '0 0 0px transparent',
         }}
-        transition={{ type: 'spring', damping: 22, stiffness: 320 }}
+        transition={{ type: 'spring', damping: 24, stiffness: 340 }}
       >
         {cursorText && (
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            className="text-[10px] uppercase font-mono font-bold tracking-widest text-cyan-200 text-center px-2 select-none drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
+            className="text-[10px] uppercase font-mono font-bold tracking-widest text-black text-center px-2 select-none"
           >
             {cursorText}
           </motion.span>

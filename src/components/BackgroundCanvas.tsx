@@ -27,17 +27,17 @@ export const BackgroundCanvas: React.FC = () => {
     const particleCount = Math.min(Math.floor((width * height) / 25000), 40);
     const mouse = { x: -1000, y: -1000, radius: 140 };
 
-    const colors = ['#00F0FF', '#8A2BE2', '#38BDF8', '#10B981'];
+    const colors = ['#CCFF00', '#FFFFFF', '#94A3B8'];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        size: Math.random() * 1.5 + 0.8,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        size: Math.random() * 1.2 + 0.6,
         color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.4 + 0.2
+        alpha: Math.random() * 0.15 + 0.05
       });
     }
 
@@ -103,9 +103,9 @@ export const BackgroundCanvas: React.FC = () => {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = '#38bdf8';
-            ctx.globalAlpha = (1 - dist / maxLineDist) * 0.10;
-            ctx.lineWidth = 0.75;
+            ctx.strokeStyle = '#CCFF00';
+            ctx.globalAlpha = (1 - dist / maxLineDist) * 0.04;
+            ctx.lineWidth = 0.6;
             ctx.stroke();
           }
         }

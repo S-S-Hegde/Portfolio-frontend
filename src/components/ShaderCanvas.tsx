@@ -94,39 +94,30 @@ export const ShaderCanvas: React.FC = () => {
         float n3 = snoise(p * 2.0 + vec2(-t * 0.07, t * 0.18) - n2 * 0.25);
         float f = n1 * 0.50 + n2 * 0.35 + n3 * 0.15;
 
-        // Base obsidian cosmic palette
-        vec3 colorBase    = vec3(0.010, 0.014, 0.022);
-        vec3 colorCyan    = vec3(0.0, 0.92, 1.0);       // #00EAFF Vibrant Aurora Cyan
-        vec3 colorEmerald = vec3(0.06, 0.90, 0.62);     // #0FE69E Aurora Borealis Emerald
-        vec3 colorPurple  = vec3(0.60, 0.18, 0.94);     // #992EF0 Aurora Violet
-        vec3 colorIndigo  = vec3(0.10, 0.36, 0.85);     // #1A5CD9 Ionosphere Indigo
+        // Refined Dark Editorial Palette
+        vec3 colorBase  = vec3(0.031, 0.035, 0.047);   // #08090C Deep Obsidian
+        vec3 colorLime  = vec3(0.80, 1.0, 0.0);        // #CCFF00 Signature Electric Lime
+        vec3 colorSlate = vec3(0.15, 0.18, 0.24);      // Titanium Slate Mist
+        vec3 colorCyan  = vec3(0.0, 0.75, 0.90);       // Restrained Precision Cyan
 
         vec3 color = colorBase;
 
-        // Layer 1: Aurora Cyan Wave with velocity flare
-        float cyanWave = sin(f * (2.8 + vBoost * 0.8) + p.x * 0.85 - p.y * 0.65 + t * 0.85);
-        color = mix(color, colorCyan, smoothstep(0.30 - vBoost * 0.05, 0.92, cyanWave) * (0.22 + vBoost * 0.08));
+        // Subtle fluid contour waves (calm, non-distracting)
+        float limeWave = sin(f * 2.2 + p.x * 0.65 - p.y * 0.45 + t * 0.6);
+        color = mix(color, colorLime, smoothstep(0.45, 0.98, limeWave) * 0.08);
 
-        // Layer 2: Aurora Borealis Emerald Wave
-        float emeraldWave = cos(f * 2.5 - p.x * 0.70 + p.y * 0.85 + t * 0.70);
-        color = mix(color, colorEmerald, smoothstep(0.32, 0.94, emeraldWave) * 0.18);
+        float slateWave = cos(f * 1.8 - p.x * 0.55 + p.y * 0.65 + t * 0.5);
+        color = mix(color, colorSlate, smoothstep(0.35, 0.90, slateWave) * 0.12);
 
-        // Layer 3: Aurora Violet Ribbon
-        float purpleWave = cos(f * 2.3 + p.x * 0.85 + p.y * 1.05 - t * 0.65);
-        color = mix(color, colorPurple, smoothstep(0.28, 0.92, purpleWave) * 0.17);
+        float cyanWave = sin(n2 * 1.6 + t * 0.40 - p.x * 0.35);
+        color = mix(color, colorCyan, smoothstep(0.40, 0.95, cyanWave) * 0.06);
 
-        // Layer 4: Deep Ionosphere Indigo Wave
-        float indigoWave = sin(n2 * 2.1 + t * 0.50 - p.x * 0.45);
-        color = mix(color, colorIndigo, smoothstep(0.18, 0.88, indigoWave) * 0.14);
-
-        // Interactive Mouse Proximity Glow & Dynamic Aurora Ripple
+        // Subtle pointer reaction
         float distToMouse = length(p - mouse);
-        float mouseGlow = smoothstep(0.68, 0.0, distToMouse);
-        float mouseRipple = sin(distToMouse * 12.0 - u_time * 2.2) * 0.5 + 0.5;
-        vec3 interactiveAurora = mix(colorCyan, colorEmerald, mouseRipple);
-        color += interactiveAurora * (mouseGlow * (0.16 + vBoost * 0.05));
+        float mouseGlow = smoothstep(0.55, 0.0, distToMouse);
+        color += colorLime * (mouseGlow * 0.04);
 
-        gl_FragColor = vec4(color, 0.88);
+        gl_FragColor = vec4(color, 0.45);
       }
     `;
 
@@ -232,7 +223,7 @@ export const ShaderCanvas: React.FC = () => {
   return (
     <div
       ref={mountRef}
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-90"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-40"
       style={{ willChange: 'transform' }}
     />
   );

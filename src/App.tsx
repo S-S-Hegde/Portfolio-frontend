@@ -46,7 +46,7 @@ const AppContent: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
   const location = useLocation();
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -94,17 +94,6 @@ const AppContent: React.FC = () => {
     };
   }, []);
 
-  // Lock scroll and pause Lenis during intro to prevent any frame drops or layout thrashing
-  useEffect(() => {
-    if (showIntro) {
-      document.body.style.overflow = 'hidden';
-      if (lenisRef.current) lenisRef.current.stop();
-    } else {
-      document.body.style.overflow = '';
-      if (lenisRef.current) lenisRef.current.start();
-    }
-  }, [showIntro]);
-
   // Smooth reset to top on route change
   useEffect(() => {
     if (lenisRef.current) {
@@ -128,15 +117,10 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#05070B] text-slate-100 overflow-x-hidden selection:bg-cyan-500 selection:text-black">
-      {/* AUGE Cinematic Intro Preloader */}
-      <AnimatePresence>
-        {showIntro && <AugeIntro onComplete={() => setShowIntro(false)} />}
-      </AnimatePresence>
-
+    <div className="relative min-h-screen bg-[#08090C] text-[#F4F5F8] overflow-x-hidden selection:bg-accent-lime selection:text-black">
       {/* Top Scroll-driven dynamic progress bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-cyan-400 via-sky-300 via-purple-500 to-emerald-400 origin-left z-[120] shadow-[0_0_12px_#00F0FF]"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent-lime via-white to-accent-cyan origin-left z-[120] shadow-[0_0_10px_rgba(204,255,0,0.4)]"
         style={{ scaleX }}
       />
 

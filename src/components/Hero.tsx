@@ -1,222 +1,262 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  Terminal as TerminalIcon,
-  Mail,
-} from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import { ArrowDown, ArrowUpRight, Mail, ShieldCheck, Terminal as TerminalIcon, Sparkles } from 'lucide-react';
+import { GithubIcon } from './SocialIcons';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { soundFx } from '../utils/audio';
-import { TiltCard } from './TiltCard';
-import { KineticText } from './KineticText';
-
-const ROLES = [
-  'Enterprise Systems Architect',
-  'Real-Time Game Tech & WebGL Engineer',
-  'Principal Full-Stack Developer',
-  'Ultra-Low Latency Netcode Specialist',
-  'Multi-Agent AI Systems Engineer',
-];
 
 export const Hero: React.FC = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
+  const [localTime, setLocalTime] = useState<string>('');
 
-  // Scroll parallax — hero content floats at half the scroll speed
+  // Live IST Clock for authentic editorial touch
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setLocalTime(
+        now.toLocaleTimeString('en-US', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        }) + ' IST'
+      );
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Subtle scroll parallax
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   });
-  const smoothScroll = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
-  const contentY = useTransform(smoothScroll, [0, 1], ['0%', '30%']);
-  const contentOpacity = useTransform(smoothScroll, [0, 0.6], [1, 0]);
+  const smoothY = useSpring(scrollYProgress, { stiffness: 90, damping: 25 });
+  const contentY = useTransform(smoothY, [0, 1], ['0%', '20%']);
+  const contentOpacity = useTransform(smoothY, [0, 0.7], [1, 0]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }, 2800);
-    return () => clearInterval(interval);
-  }, []);
-
-  const marqueeItems = [
-    'Enterprise React 18', 'Node.js Distributed Engine', 'WebGL 2.0 / GLSL',
-    'Three.js Game Tech', 'FastAPI Microservices', 'MongoDB Atlas Cluster',
-    'Gemini 2.0 Flash AI', 'YOLOv10 Vision AI', 'Sub-14ms Netcode',
-    'Zero-Trust RBAC', 'Docker & Cloud Orchestration', 'TypeScript',
-    'High-Throughput REST APIs', 'Tailwind CSS Design System',
-  ];
+  const handleScrollToVeriProof = (e: React.MouseEvent) => {
+    e.preventDefault();
+    soundFx.playClick();
+    const el = document.getElementById('veriproof');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section
       ref={heroRef}
-      className="relative min-h-[88vh] pt-28 sm:pt-32 pb-8 px-4 sm:px-6 lg:px-8 flex flex-col justify-between overflow-hidden"
+      className="relative min-h-[92vh] pt-32 sm:pt-36 pb-16 px-4 sm:px-6 lg:px-8 flex flex-col justify-between overflow-hidden"
     >
-      {/* Background ambient */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] max-w-full bg-gradient-to-tr from-cyan-500/10 via-purple-600/10 to-transparent rounded-full blur-[160px] pointer-events-none" />
+      {/* Background Architectural Subtle Accents */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Subtle grid intersection */}
+        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/[0.05] to-transparent" />
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/[0.05] to-transparent" />
+        <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
+        {/* Single restrained electric-lime ambient glow */}
+        <div
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] opacity-15 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(204, 255, 0, 0.25) 0%, transparent 70%)',
+          }}
+        />
+      </div>
 
-      {/* Parallax content wrapper */}
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
         className="max-w-6xl mx-auto w-full z-10 flex-1 flex flex-col justify-center"
       >
-        {/* Status pill */}
+        {/* Top Metadata Row: Editorial Masthead */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="flex items-center gap-2 mb-4"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-wrap items-center justify-between gap-3 pb-8 mb-6 border-b border-white/[0.08] text-xs font-mono text-slate-400"
         >
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#090D16]/90 border border-cyan-500/40 text-cyan-300 text-xs font-mono backdrop-blur-xl shadow-[0_0_20px_rgba(0,240,255,0.2)]">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-            <span className="font-semibold tracking-wide">ENTERPRISE TACTICAL HUB // ONLINE</span>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-accent-lime animate-pulse" />
+            <span className="text-white font-medium uppercase tracking-wider">
+              SHRIDHAR HEGDE
+            </span>
+            <span className="text-white/20">/</span>
+            <span className="text-slate-400">PORTFOLIO &lsquo;26</span>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-6 text-[11px] text-slate-400">
+            <span>KARNATAKA, INDIA [12.97°N]</span>
+            <span className="text-white/20">•</span>
+            <span>CLOCK: <span className="text-white font-bold">{localTime || 'IST'}</span></span>
+            <span className="text-white/20">•</span>
+            <span className="text-accent-lime">AVAILABLE FOR ROLES</span>
           </div>
         </motion.div>
 
-        {/* Main title */}
-        <div className="space-y-3.5">
-          <h1 className="text-3xl sm:text-5xl lg:text-[3.65rem] font-black tracking-tight leading-[1.12] drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)]">
-            <KineticText
-              text="Architecting Mission-Critical Enterprise Platforms & Real-Time Cyber Systems."
-              as="span"
-              wordClassName="bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 via-sky-300 to-purple-400"
-            />
-          </h1>
-
-          {/* Role flipper */}
-          <div className="flex items-center flex-wrap gap-2 text-base sm:text-xl font-mono text-slate-200 min-h-[32px] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-            <span className="text-cyan-400 font-bold">&gt;</span>
-            <span className="text-slate-300">Role: </span>
-            <motion.span
-              key={roleIndex}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3 }}
-              className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400 font-bold border-b-2 border-cyan-400/60 pb-0.5"
+        {/* Monumental Editorial Headline */}
+        <div className="space-y-4">
+          <div className="overflow-hidden">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: '0%' }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-black tracking-tight leading-[1.02] text-white"
             >
-              {ROLES[roleIndex]}
-            </motion.span>
+              BUILDING RESILIENT
+            </motion.h1>
           </div>
-
-          {/* Bio */}
-          <p className="text-slate-200 text-sm sm:text-base max-w-2xl leading-relaxed pt-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
-            Hi, I&apos;m <strong className="text-white font-bold">{PERSONAL_INFO.shortName}</strong> — Lead Full-Stack Architect &amp; Interactive Graphics Engineer. Bridging mission-critical enterprise backends with high-performance real-time gaming engines, custom WebGL/GLSL shaders, and autonomous AI systems. Architect of <strong className="text-cyan-300 font-semibold">VeriProof Enterprise</strong> (candidate forensic verification &amp; anti-cheat engine) and <strong className="text-emerald-300 font-semibold">TourEase Matrix</strong>.
-          </p>
+          <div className="overflow-hidden">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: '0%' }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-black tracking-tight leading-[1.02] text-white flex items-center flex-wrap gap-x-4"
+            >
+              <span>DISTRIBUTED SYSTEMS</span>
+              <span className="text-accent-lime font-mono text-3xl sm:text-5xl font-light">
+                &amp;
+              </span>
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: '0%' }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-black tracking-tight leading-[1.02] text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400"
+            >
+              PRACTICAL AI.
+            </motion.h1>
+          </div>
         </div>
 
-        {/* Action buttons */}
+        {/* Narrative Introduction & Positioning */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
+          className="mt-8 max-w-2xl"
+        >
+          <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
+            I am a full-stack engineer focused on high-throughput backend architecture,
+            intuitive client interfaces, and verifiable AI workflows. Creator of{' '}
+            <a
+              href="#veriproof"
+              onClick={handleScrollToVeriProof}
+              className="text-accent-lime hover:underline font-semibold"
+            >
+              VeriProof
+            </a>
+            , an automated candidate skill-assessment platform that audits GitHub repositories,
+            AST code complexity, and resume claims.
+          </p>
+        </motion.div>
+
+        {/* Action Suite (Primary Case Study CTA, GitHub, Contact) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap items-center gap-3.5 pt-6"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+          className="mt-10 flex flex-wrap items-center gap-4"
         >
-          <Link
-            to="/projects"
-            onClick={() => soundFx.playClick()}
-            data-magnetic="true"
-            data-cursor-text="EXPLORE"
-            className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-[0_0_25px_rgba(0,240,255,0.3)] hover:scale-[1.02]"
+          <a
+            href="#veriproof"
+            onClick={handleScrollToVeriProof}
+            className="px-6 py-3.5 rounded-full bg-accent-lime hover:bg-[#B8E600] text-black font-extrabold text-sm flex items-center gap-2.5 transition-all shadow-[0_0_20px_rgba(204,255,0,0.25)] hover:scale-[1.02]"
           >
-            <span>Explore System Architectures</span>
-            <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-          </Link>
+            <span>Explore VeriProof Case Study</span>
+            <ArrowDown className="w-4 h-4 stroke-[2.5]" />
+          </a>
 
-          <Link
-            to="/terminal"
+          <a
+            href={PERSONAL_INFO.github}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => soundFx.playClick()}
-            data-magnetic="true"
-            data-cursor-text="TERMINAL"
-            className="px-5 py-3.5 rounded-xl bg-[#0B0F18]/85 hover:bg-[#0E1320] border border-white/15 hover:border-cyan-500/50 text-slate-100 hover:text-cyan-300 font-mono text-xs sm:text-sm flex items-center gap-2 transition-all backdrop-blur-xl shadow-lg"
+            className="px-5 py-3.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-white/20 text-white font-mono text-xs sm:text-sm flex items-center gap-2 transition-all"
           >
-            <TerminalIcon className="w-4 h-4 text-cyan-400" />
-            <span>Launch CLI Tactical Console</span>
-          </Link>
+            <GithubIcon className="w-4 h-4 text-slate-300" />
+            <span>GitHub Profile</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+          </a>
 
           <Link
             to="/contact"
             onClick={() => soundFx.playClick()}
-            data-magnetic="true"
-            data-cursor-text="CONNECT"
-            className="px-5 py-3.5 rounded-xl bg-[#0B0F18]/85 hover:bg-[#0E1320] border border-white/15 text-slate-100 hover:text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all backdrop-blur-xl shadow-lg"
+            className="px-5 py-3.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 hover:border-white/20 text-white font-medium text-xs sm:text-sm flex items-center gap-2 transition-all"
           >
-            <Mail className="w-4 h-4 text-purple-400" />
-            <span>Executive Briefing</span>
+            <Mail className="w-4 h-4 text-slate-300" />
+            <span>Get in Touch</span>
           </Link>
-
-          <div className="flex items-center gap-2 pl-1">
-            <a
-              href={PERSONAL_INFO.github}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => soundFx.playClick()}
-              data-magnetic="true"
-              data-cursor-text="GITHUB"
-              title="GitHub Profile"
-              className="p-3.5 rounded-xl bg-[#0B0F18]/85 border border-white/15 hover:border-cyan-400/50 text-slate-200 hover:text-cyan-300 hover:scale-105 transition-all backdrop-blur-xl shadow-lg"
-            >
-              <GithubIcon className="w-4 h-4" />
-            </a>
-            <a
-              href={PERSONAL_INFO.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => soundFx.playClick()}
-              data-magnetic="true"
-              data-cursor-text="LINKEDIN"
-              title="LinkedIn Profile"
-              className="p-3.5 rounded-xl bg-[#0B0F18]/85 border border-white/15 hover:border-cyan-400/50 text-slate-200 hover:text-cyan-300 hover:scale-105 transition-all backdrop-blur-xl shadow-lg"
-            >
-              <LinkedinIcon className="w-4 h-4" />
-            </a>
-          </div>
         </motion.div>
 
-        {/* HUD stat cards */}
+        {/* Architectural Highlights Strip */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-8"
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.75 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-14 pt-8 border-t border-white/[0.08]"
         >
-          {PERSONAL_INFO.stats.map((stat, idx) => (
-            <TiltCard
-              key={idx}
-              maxTilt={8}
-              glareOpacity={0.2}
-              glareColor="rgba(0, 240, 255, 0.35)"
-              cursorText="METRIC"
-              className="p-3.5 sm:p-4 rounded-2xl bg-[#090D16]/90 border border-white/15 hover:border-cyan-500/50 backdrop-blur-2xl transition-all duration-300 group hover:-translate-y-1 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-            >
-              <div className="flex items-baseline gap-1">
-                <span className="text-xl sm:text-2xl font-black text-white group-hover:text-cyan-300 transition-colors">
-                  {stat.value}
-                </span>
-                <span className="text-xs font-mono text-cyan-400 font-bold">{stat.suffix}</span>
-              </div>
-              <p className="text-xs font-semibold text-slate-200 mt-0.5">{stat.label}</p>
-              <p className="text-[10px] text-slate-400 font-mono mt-0.5 truncate">{stat.detail}</p>
-            </TiltCard>
-          ))}
+          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-accent-lime/30 transition-colors">
+            <span className="text-[10px] font-mono text-accent-lime uppercase tracking-widest block mb-1">
+              01 // Flagship Project
+            </span>
+            <h4 className="text-sm font-bold text-white">VeriProof Platform</h4>
+            <p className="text-xs text-slate-400 mt-1 leading-normal">
+              Candidate skill assessment &amp; GitHub AST commit forensics.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-accent-lime/30 transition-colors">
+            <span className="text-[10px] font-mono text-accent-lime uppercase tracking-widest block mb-1">
+              02 // Core Stack
+            </span>
+            <h4 className="text-sm font-bold text-white">React 18 &bull; Node &bull; Express</h4>
+            <p className="text-xs text-slate-400 mt-1 leading-normal">
+              End-to-end type-safe web APIs and component architecture.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-accent-lime/30 transition-colors">
+            <span className="text-[10px] font-mono text-accent-lime uppercase tracking-widest block mb-1">
+              03 // AI Microservices
+            </span>
+            <h4 className="text-sm font-bold text-white">Python FastAPI &bull; Gemini</h4>
+            <p className="text-xs text-slate-400 mt-1 leading-normal">
+              On-device YOLOv10/MediaPipe vision &amp; structured LLM extraction.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-accent-lime/30 transition-colors">
+            <span className="text-[10px] font-mono text-accent-lime uppercase tracking-widest block mb-1">
+              04 // Systems Rigor
+            </span>
+            <h4 className="text-sm font-bold text-white">IIT Kanpur Elite &bull; SDM-IT</h4>
+            <p className="text-xs text-slate-400 mt-1 leading-normal">
+              NPTEL Elite C programming &amp; ISE engineering foundations.
+            </p>
+          </div>
         </motion.div>
       </motion.div>
 
-      {/* Infinite marquee strip */}
-      <div className="w-full pt-10 pb-2 overflow-hidden mask-fade">
-        <div className="flex gap-4 animate-marquee whitespace-nowrap">
-          {[...marqueeItems, ...marqueeItems].map((item, idx) => (
-            <div
-              key={idx}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#090D16]/80 border border-white/10 text-xs font-mono text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 transition-colors backdrop-blur-md"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Subtle Bottom Scroll Cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.8 }}
+        className="max-w-6xl mx-auto w-full pt-8 flex items-center justify-between text-[11px] font-mono text-slate-500"
+      >
+        <span className="flex items-center gap-2">
+          <span>SCROLL TO INSPECT ARCHITECTURES</span>
+          <ArrowDown className="w-3 h-3 text-accent-lime animate-bounce" />
+        </span>
+        <span className="hidden sm:inline">PROD // REACT 18 &bull; VITE</span>
+      </motion.div>
     </section>
   );
 };
+
+export default Hero;

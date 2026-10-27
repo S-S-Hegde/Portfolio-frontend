@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Search, Menu, X, Send } from 'lucide-react';
+import { Volume2, VolumeX, Search, Menu, X, ArrowUpRight, Terminal } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { soundFx } from '../utils/audio';
 
@@ -19,14 +19,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll to top upon route change
+  // Close mobile menu on route change
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setMobileMenuOpen(false);
   }, [location.pathname]);
+
+  // Handle Escape key to close mobile menu
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
 
   const toggleSound = () => {
     const next = soundFx.toggle();
@@ -34,132 +45,165 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   };
 
   const navLinks = [
-    { label: 'Home', path: '/' },
+    { label: 'Overview', path: '/' },
+    { label: 'VeriProof', path: '/#veriproof' },
     { label: 'Projects', path: '/projects' },
     { label: 'Skills', path: '/skills' },
     { label: 'Education', path: '/education' },
     { label: 'Terminal', path: '/terminal' },
-    { label: 'Journey', path: '/journey' },
     { label: 'Contact', path: '/contact' },
   ];
 
+  const handleNavClick = (path: string) => {
+    soundFx.playClick();
+    if (path.startsWith('/#')) {
+      const id = path.replace('/#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 py-4 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 py-4 transition-all duration-300">
       <div
-        className={`max-w-6xl mx-auto rounded-2xl border transition-all duration-300 ${
+        className={`max-w-6xl mx-auto rounded-full transition-all duration-300 ${
           scrolled
-            ? 'bg-[#090C12]/85 border-cyan-500/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] py-2.5 px-4'
-            : 'bg-[#090C12]/40 border-white/10 backdrop-blur-md py-3.5 px-5'
+            ? 'bg-[#08090C]/85 border border-white/10 backdrop-blur-xl py-2 px-5 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+            : 'bg-[#0D0F14]/60 border border-white/10 backdrop-blur-md py-3 px-6'
         } flex items-center justify-between`}
       >
-        {/* Brand / Logo */}
+        {/* Left: Brand / Monogram */}
         <Link
           to="/"
           onClick={() => soundFx.playClick()}
-          className="flex items-center gap-2.5 group"
+          className="flex items-center gap-3 group focus-visible:ring-2 focus-visible:ring-accent-lime"
+          aria-label="Shridhar Hegde Portfolio Home"
         >
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center font-black text-black text-sm shadow-[0_0_15px_rgba(0,240,255,0.4)] group-hover:scale-105 transition-transform">
+          <div className="w-8 h-8 rounded-full bg-white/[0.05] border border-white/15 flex items-center justify-center font-mono text-xs font-bold text-white group-hover:border-accent-lime group-hover:text-accent-lime transition-colors">
             SH
           </div>
           <div className="flex flex-col">
-            <span className="font-bold text-sm tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+            <span className="font-bold text-sm tracking-tight text-white group-hover:text-accent-lime transition-colors">
               {PERSONAL_INFO.shortName}
             </span>
-            <span className="text-[10px] font-mono text-cyan-400/80 -mt-0.5">
-              Principal Architect &amp; Game Tech
-            </span>
+            <div className="flex items-center gap-1.5 -mt-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-lime animate-pulse" />
+              <span className="text-[10px] font-mono text-slate-400">
+                Available for Roles
+              </span>
+            </div>
           </div>
         </Link>
 
-        {/* Desktop Route Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/5 rounded-full px-2 py-1">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              onClick={() => soundFx.playHover()}
-              className={({ isActive }) =>
-                `px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  isActive
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_12px_rgba(0,240,255,0.2)]'
-                    : 'text-slate-300 hover:text-white hover:bg-white/5'
-                }`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
+        {/* Center: Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/10 rounded-full px-3 py-1">
+          {navLinks.map((link) => {
+            const isAnchor = link.path.startsWith('/#');
+            if (isAnchor) {
+              return (
+                <a
+                  key={link.path}
+                  href={link.path}
+                  onClick={(e) => {
+                    if (location.pathname === '/') {
+                      e.preventDefault();
+                      handleNavClick(link.path);
+                    }
+                  }}
+                  className="px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white transition-colors rounded-full hover:bg-white/[0.05]"
+                >
+                  {link.label}
+                </a>
+              );
+            }
+
+            return (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                onClick={() => soundFx.playHover()}
+                className={({ isActive }) =>
+                  `px-3.5 py-1.5 text-xs font-medium transition-all rounded-full relative ${
+                    isActive
+                      ? 'text-black bg-accent-lime font-bold shadow-[0_0_12px_rgba(204,255,0,0.3)]'
+                      : 'text-slate-300 hover:text-white hover:bg-white/[0.05]'
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            );
+          })}
         </nav>
 
-        {/* Action Controls */}
+        {/* Right: Quick Tools (Command Palette, Audio, Contact CTA) */}
         <div className="flex items-center gap-2">
-          {/* Live Status Radar Pill (Desktop) */}
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px] font-mono">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span>2027 Grad • Open to Roles</span>
-          </div>
-
-          {/* Command Palette Trigger */}
+          {/* Command Palette Trigger (Ctrl+K) */}
           <button
             onClick={() => {
               soundFx.playClick();
               onOpenCommandPalette();
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-300 transition-all text-xs font-mono"
             title="Open Command Palette (Ctrl+K)"
+            aria-label="Open Command Palette"
+            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 hover:border-accent-lime/40 text-slate-400 hover:text-white text-xs font-mono transition-all"
           >
-            <Search className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="hidden sm:inline">Search</span>
-            <kbd className="hidden sm:inline px-1 bg-white/10 rounded text-[10px] text-slate-400">⌘K</kbd>
+            <Search className="w-3.5 h-3.5" />
+            <kbd className="text-[10px] bg-white/[0.08] px-1.5 py-0.5 rounded text-slate-300 border border-white/10">
+              ⌘K
+            </kbd>
           </button>
 
-          {/* Sound Toggle */}
+          {/* Audio Synthesizer Toggle */}
           <button
             onClick={toggleSound}
-            className={`p-2 rounded-xl border transition-all ${
-              soundEnabled
-                ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20'
-                : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
-            }`}
-            title={soundEnabled ? 'Mute Audio FX' : 'Enable Audio FX'}
+            title={soundEnabled ? 'Disable Synthesized Audio' : 'Enable Audio'}
+            aria-label={soundEnabled ? 'Disable Synthesized Audio' : 'Enable Audio'}
+            className="p-2 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/30 text-slate-400 hover:text-white transition-colors"
           >
-            {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            {soundEnabled ? (
+              <Volume2 className="w-3.5 h-3.5 text-accent-lime" />
+            ) : (
+              <VolumeX className="w-3.5 h-3.5 text-slate-500" />
+            )}
           </button>
 
-          {/* Contact Button */}
+          {/* Quick Contact CTA Button */}
           <Link
             to="/contact"
             onClick={() => soundFx.playClick()}
-            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-semibold text-xs transition-all shadow-[0_0_20px_rgba(0,240,255,0.25)]"
+            className="hidden lg:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-black font-semibold text-xs hover:bg-accent-lime hover:shadow-[0_0_15px_rgba(204,255,0,0.3)] transition-all"
           >
-            <Send className="w-3.5 h-3.5" />
-            <span>Connect</span>
+            <span>Get in Touch</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Hamburger */}
           <button
             onClick={() => {
               soundFx.playClick();
               setMobileMenuOpen(!mobileMenuOpen);
             }}
-            className="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 md:hidden"
+            className="md:hidden p-2 rounded-full bg-white/[0.04] border border-white/10 text-slate-300 hover:text-white"
+            aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu with AnimatePresence */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden mt-2 p-4 rounded-2xl bg-[#0b0e14]/95 border border-cyan-500/20 backdrop-blur-2xl shadow-2xl flex flex-col gap-2"
+            transition={{ duration: 0.2 }}
+            className="md:hidden mt-3 max-w-6xl mx-auto rounded-2xl bg-[#0B0D13]/95 border border-white/15 backdrop-blur-2xl p-5 shadow-2xl flex flex-col gap-2"
           >
             {navLinks.map((link) => (
               <NavLink
@@ -172,25 +216,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
                 className={({ isActive }) =>
                   `px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-cyan-500/15 text-cyan-300 font-semibold'
-                      : 'text-slate-200 hover:bg-white/10 hover:text-cyan-300'
+                      ? 'bg-accent-lime text-black font-bold'
+                      : 'text-slate-200 hover:bg-white/10 hover:text-white'
                   }`
                 }
               >
                 {link.label}
               </NavLink>
             ))}
-            <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-mono">
-              <span>NEXUS ARCH // 144Hz SYNC</span>
+
+            <div className="pt-3 mt-2 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-mono">
+              <span>{PERSONAL_INFO.email}</span>
               <Link
                 to="/contact"
-                onClick={() => {
-                  soundFx.playClick();
-                  setMobileMenuOpen(false);
-                }}
-                className="text-cyan-400 font-bold"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-accent-lime font-bold"
               >
-                Executive Dispatch →
+                Let&apos;s Connect →
               </Link>
             </div>
           </motion.div>
@@ -199,3 +241,5 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
     </header>
   );
 };
+
+export default Navbar;
