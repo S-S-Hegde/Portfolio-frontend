@@ -36,7 +36,7 @@ export const SelectedWorks: React.FC = () => {
         </div>
 
         {/* Project 1: TourEase (Cinematic Split Layout with Map & AI Workflow) */}
-        <div className="p-6 sm:p-10 rounded-2xl bg-[#0E1117] border border-white/[0.08] hover:border-white/20 transition-all space-y-8">
+        <div className="p-6 sm:p-10 rounded-2xl frosted-glass hover:border-emerald-500/40 transition-all space-y-8">
           {/* Masthead */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.08] pb-6">
             <div className="flex items-center gap-3">
@@ -153,7 +153,7 @@ export const SelectedWorks: React.FC = () => {
         </div>
 
         {/* Project 2: Expense Tracker (Analytical Card Layout) */}
-        <div className="p-6 sm:p-10 rounded-2xl bg-[#0E1117] border border-white/[0.08] hover:border-white/20 transition-all space-y-8">
+        <div className="p-6 sm:p-10 rounded-2xl frosted-glass hover:border-amber-500/40 transition-all space-y-8">
           {/* Masthead */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.08] pb-6">
             <div className="flex items-center gap-3">

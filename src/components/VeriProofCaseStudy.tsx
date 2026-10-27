@@ -198,7 +198,7 @@ export const VeriProofCaseStudy: React.FC = () => {
 
         {/* Problem vs Solution Editorial Split */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#0E1117] border border-white/[0.08] space-y-4">
+          <div className="p-6 sm:p-8 rounded-2xl frosted-glass-rose space-y-4">
             <div className="flex items-center gap-2 text-rose-400 font-mono text-xs uppercase tracking-wider">
               <AlertCircle className="w-4 h-4" />
               <span className="font-bold">The Technical Problem</span>
@@ -218,8 +218,8 @@ export const VeriProofCaseStudy: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#0E1117] border border-accent-lime/30 space-y-4 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent-lime/5 rounded-full blur-2xl pointer-events-none" />
+          <div className="p-6 sm:p-8 rounded-2xl frosted-glass-accent space-y-4 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-accent-lime/10 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center gap-2 text-accent-lime font-mono text-xs uppercase tracking-wider">
               <CheckCircle2 className="w-4 h-4" />
               <span className="font-bold">The VeriProof Solution</span>
@@ -240,7 +240,7 @@ export const VeriProofCaseStudy: React.FC = () => {
         </div>
 
         {/* System Architecture Flow Diagram */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-[#0E1117] border border-white/[0.08] space-y-6">
+        <div className="p-6 sm:p-8 rounded-2xl frosted-glass space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-accent-lime" />
@@ -288,7 +288,7 @@ export const VeriProofCaseStudy: React.FC = () => {
             ].map((node, i) => (
               <div
                 key={i}
-                className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-accent-lime/40 transition-colors flex flex-col justify-between"
+                className="p-4 rounded-xl frosted-glass-subtle hover:border-accent-lime/40 transition-all flex flex-col justify-between"
               >
                 <div>
                   <span className="text-[10px] font-mono text-accent-lime font-bold block mb-1">
@@ -315,7 +315,7 @@ export const VeriProofCaseStudy: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-5 rounded-xl bg-[#0E1117] border border-white/[0.08] hover:border-white/20 transition-colors space-y-2">
+            <div className="p-5 rounded-xl frosted-glass hover:border-white/20 transition-all space-y-2">
               <span className="text-xs font-mono text-accent-lime font-bold">
                 DECISION 01 // PRIVACY &amp; BANDWIDTH
               </span>
@@ -329,7 +329,7 @@ export const VeriProofCaseStudy: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-5 rounded-xl bg-[#0E1117] border border-white/[0.08] hover:border-white/20 transition-colors space-y-2">
+            <div className="p-5 rounded-xl frosted-glass hover:border-white/20 transition-all space-y-2">
               <span className="text-xs font-mono text-accent-lime font-bold">
                 DECISION 02 // IN-MEMORY STREAMING
               </span>
@@ -343,7 +343,7 @@ export const VeriProofCaseStudy: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-5 rounded-xl bg-[#0E1117] border border-white/[0.08] hover:border-white/20 transition-colors space-y-2">
+            <div className="p-5 rounded-xl frosted-glass hover:border-white/20 transition-all space-y-2">
               <span className="text-xs font-mono text-accent-lime font-bold">
                 DECISION 03 // MICROSERVICE ISOLATION
               </span>
@@ -360,7 +360,7 @@ export const VeriProofCaseStudy: React.FC = () => {
         </div>
 
         {/* Interactive Verification Pipeline Sandbox */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-[#0B0D13] border border-white/[0.1] space-y-6">
+        <div className="p-6 sm:p-8 rounded-2xl frosted-glass space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.08] pb-5">
             <div>
               <div className="flex items-center gap-2">
@@ -398,7 +398,7 @@ export const VeriProofCaseStudy: React.FC = () => {
 
           {/* Active Scenario Card */}
           <div className="space-y-4">
-            <div className="p-4 rounded-xl bg-[#12151D] border border-white/[0.06] space-y-1">
+            <div className="p-4 rounded-xl frosted-glass-subtle space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-mono text-accent-lime font-bold uppercase">
                   {activeScenario.category} // {activeScenario.name}
@@ -430,8 +430,8 @@ export const VeriProofCaseStudy: React.FC = () => {
                     key={idx}
                     className={`p-4 rounded-xl border transition-all ${
                       isPassed
-                        ? 'bg-white/[0.02] border-white/15'
-                        : 'bg-white/[0.01] border-white/[0.04] opacity-40'
+                        ? 'frosted-glass-subtle border-white/15'
+                        : 'bg-white/[0.01] backdrop-blur-sm border-white/[0.04] opacity-40'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -453,7 +453,7 @@ export const VeriProofCaseStudy: React.FC = () => {
             </div>
 
             {/* Output Verification Dossier */}
-            <div className="p-4 rounded-xl bg-accent-lime/[0.04] border border-accent-lime/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="p-4 rounded-xl frosted-glass-accent flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-accent-lime text-black">

@@ -94,7 +94,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) =
         </div>
 
         {/* Live Interactive VeriProof Sandbox Toggle Drawer */}
-        <div className="rounded-3xl bg-[#0A0D14]/80 border border-white/10 p-5 sm:p-6 backdrop-blur-md">
+        <div className="rounded-3xl frosted-glass p-5 sm:p-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="p-3 rounded-2xl bg-accent-lime/10 border border-accent-lime/30 text-accent-lime">
@@ -159,7 +159,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) =
                 glareOpacity={0.12}
                 glareColor={`${accent}30`}
                 cursorText="CASE STUDY"
-                className="group relative rounded-3xl bg-[#0C0E14] border border-white/10 hover:border-white/20 p-6 sm:p-8 md:p-10 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden"
+                className="group relative rounded-3xl frosted-glass hover:border-white/20 p-6 sm:p-8 md:p-10 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden"
               >
                 {/* Hairline top accent gradient rim */}
                 <div
