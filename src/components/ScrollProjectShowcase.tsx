@@ -280,10 +280,10 @@ export const ScrollProjectShowcase: React.FC<ScrollProjectShowcaseProps> = ({ on
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-wrap gap-8 sm:gap-12 pt-2"
           >
-            <ScrollCounter value={3} suffix="+" label="Production Projects" color="#00F0FF" />
-            <ScrollCounter value={64} suffix="K+" label="Lines of Code" color="#A855F7" />
-            <ScrollCounter value={6} label="AI Engine Tiers" color="#10B981" />
-            <ScrollCounter value={8} suffix=".31" label="CGPA" color="#F59E0B" />
+            <ScrollCounter value={3} suffix="+" label="Production Platforms" color="#00F0FF" />
+            <ScrollCounter value={250} suffix="K+" label="Production LOC" color="#A855F7" />
+            <ScrollCounter value={14} suffix="ms" label="P99 Netcode SLA" color="#10B981" />
+            <ScrollCounter value={144} suffix=" FPS" label="WebGL Engine" color="#F59E0B" />
           </motion.div>
         </motion.div>
 

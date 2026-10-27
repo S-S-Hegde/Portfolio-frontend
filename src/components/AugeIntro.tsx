@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { soundFx } from '../utils/audio';
 
@@ -8,209 +8,289 @@ interface AugeIntroProps {
 
 export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
-  const [statusText, setStatusText] = useState('INITIALIZING CORE...');
+  const [statusText, setStatusText] = useState('BOOTING DISTRIBUTED ENTERPRISE KERNEL...');
   const [isExiting, setIsExiting] = useState(false);
+  const rafRef = useRef<number | null>(null);
+  const completedRef = useRef(false);
 
+  // Buttery-smooth 144Hz/120Hz/60Hz frame-synchronized progress loop
   useEffect(() => {
-    // Progressive counter simulation with dynamic status updates
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        // Organic acceleration curve
-        const step = prev < 30 ? 2 : prev < 75 ? 4 : prev < 90 ? 3 : 5;
-        const next = Math.min(100, prev + step);
+    const startTime = performance.now();
+    const duration = 1800; // 1.8s snappy, authoritative boot sequence
 
-        if (next < 25) setStatusText('BOOTING NEURAL RUNTIME // 12.97° N');
-        else if (next < 55) setStatusText('COMPILING DISTRIBUTED MESH // V3.4.0');
-        else if (next < 85) setStatusText('SYNCHRONIZING LENIS & MOTION ENGINE');
-        else setStatusText('SYSTEM READY // WELCOME');
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const rawProgress = Math.min(1, elapsed / duration);
 
-        return next;
-      });
-    }, 45);
+      // Smooth custom acceleration & deceleration curve (cubic-bezier like)
+      // Ease-out with organic pacing: fast start, steady mid, crisp lock
+      const eased =
+        rawProgress < 0.7
+          ? Math.pow(rawProgress / 0.7, 0.85) * 0.78
+          : 0.78 + (1 - Math.pow(1 - (rawProgress - 0.7) / 0.3, 2.4)) * 0.22;
 
-    return () => clearInterval(interval);
-  }, []);
+      const currentPercent = Math.min(100, Math.floor(eased * 100));
+      setProgress(currentPercent);
 
-  useEffect(() => {
-    if (progress === 100) {
-      try {
-        soundFx.playSuccess();
-      } catch (e) {
-        // Audio might require user interaction on first visit
+      // Corporate & Gaming telemetry updates synchronized with progress milestones
+      if (currentPercent < 22) {
+        setStatusText('INITIALIZING DISTRIBUTED KERNEL & MEMORY BUS...');
+      } else if (currentPercent < 48) {
+        setStatusText('COMPILING 144Hz GLSL SHADER PIPELINE // 0.08ms FRAME...');
+      } else if (currentPercent < 75) {
+        setStatusText('LINKING ZERO-TRUST RBAC & REAL-TIME NETCODE MESH...');
+      } else if (currentPercent < 98) {
+        setStatusText('DEPLOYING MISSION-CRITICAL CLOUD INFRASTRUCTURE...');
+      } else {
+        setStatusText('TACTICAL SYSTEMS ONLINE // WELCOME ARCHITECT');
       }
-      const exitTimer = setTimeout(() => {
-        setIsExiting(true);
-        setTimeout(() => {
-          onComplete();
-        }, 900); // Wait for curtain wipe transition
-      }, 350);
-      return () => clearTimeout(exitTimer);
-    }
-  }, [progress, onComplete]);
+
+      if (rawProgress < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        setProgress(100);
+        if (!completedRef.current) {
+          completedRef.current = true;
+          try {
+            soundFx.playSuccess();
+          } catch {
+            // Audio context gesture restriction
+          }
+          setTimeout(() => {
+            setIsExiting(true);
+            setTimeout(onComplete, 700);
+          }, 240);
+        }
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+        handleSkip();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onComplete]);
 
   const handleSkip = () => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    setProgress(100);
     setIsExiting(true);
-    setTimeout(() => {
-      onComplete();
-    }, 400);
+    setTimeout(onComplete, 350);
   };
 
-  const nameLetters = ['S', 'H', 'R', 'I', 'D', 'H', 'A', 'R'];
+  const nameLetters = ['S', 'H', 'R', 'I', 'D', 'H', 'A', 'R', ' ', 'H', 'E', 'G', 'D', 'E'];
 
   return (
     <AnimatePresence>
       {!isExiting && (
         <motion.div
-          key="auge-preloader"
-          initial={{ opacity: 1 }}
+          key="corporate-gaming-preloader"
+          initial={{ opacity: 1, y: 0 }}
           exit={{
-            clipPath: 'inset(0% 0% 100% 0%)',
-            transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] },
+            y: '-100%',
+            opacity: 0.98,
+            transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
           }}
-          className="fixed inset-0 z-[9999] bg-[#04060A] text-white flex flex-col justify-between p-6 sm:p-10 select-none overflow-hidden cursor-default"
+          className="fixed inset-0 z-[9999] bg-[#040608] text-white flex flex-col justify-between p-6 sm:p-10 select-none overflow-hidden cursor-default transform-gpu will-change-transform"
         >
-          {/* Dynamic Aurora Gradient Mesh Background */}
+          {/* Zero-Jank Hardware-Accelerated Ambient Mesh (Pure CSS Radial Gradients, NO blur filters) */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {/* Top-right Cyan flare */}
-            <motion.div
-              animate={{
-                scale: [1, 1.25, 1],
-                opacity: [0.35, 0.6, 0.35],
-                x: [0, 20, 0],
-                y: [0, -30, 0],
+            {/* Top-Right Cyber Cyan Radial Flare */}
+            <div
+              className="absolute -top-32 -right-32 w-[650px] h-[650px] rounded-full pointer-events-none opacity-40 transform-gpu"
+              style={{
+                background:
+                  'radial-gradient(circle, rgba(0, 240, 255, 0.28) 0%, rgba(0, 160, 255, 0.12) 38%, transparent 70%)',
               }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-32 -right-32 w-[550px] h-[550px] rounded-full bg-gradient-to-br from-cyan-400/30 via-sky-500/20 to-transparent blur-[130px]"
-            />
-            {/* Bottom-left Deep Purple/Indigo flare */}
-            <motion.div
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.3, 0.55, 0.3],
-                x: [0, -30, 0],
-                y: [0, 20, 0],
-              }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-              className="absolute -bottom-32 -left-32 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-purple-600/30 via-indigo-600/20 to-transparent blur-[140px]"
-            />
-            {/* Center Emerald Accent flare */}
-            <motion.div
-              animate={{
-                scale: [0.9, 1.15, 0.9],
-                opacity: [0.15, 0.3, 0.15],
-              }}
-              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-emerald-500/15 blur-[120px]"
             />
 
-            {/* Subtle High-Tech Grid Scanlines */}
+            {/* Bottom-Left Cyberpunk Violet Radial Flare */}
             <div
-              className="absolute inset-0 opacity-[0.03]"
+              className="absolute -bottom-32 -left-32 w-[700px] h-[700px] rounded-full pointer-events-none opacity-45 transform-gpu"
+              style={{
+                background:
+                  'radial-gradient(circle, rgba(138, 43, 226, 0.26) 0%, rgba(79, 70, 229, 0.12) 42%, transparent 72%)',
+              }}
+            />
+
+            {/* Center Razor Emerald Engine Glow */}
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none opacity-20 transform-gpu"
+              style={{
+                background:
+                  'radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 68%)',
+              }}
+            />
+
+            {/* High-Precision Cyber Grid Scanlines */}
+            <div
+              className="absolute inset-0 opacity-[0.04]"
               style={{
                 backgroundImage:
-                  'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-                backgroundSize: '48px 48px',
+                  'linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)',
+                backgroundSize: '40px 40px',
+              }}
+            />
+
+            {/* Subtle Diagonal Carbon Fiber Weave */}
+            <div
+              className="absolute inset-0 opacity-[0.02]"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(45deg, #000 0, #000 2px, transparent 0, transparent 8px)',
               }}
             />
           </div>
 
-          {/* Top Telemetry Header */}
+          {/* Top Telemetry Header: Corporate Executive & Gaming HUD */}
           <div className="relative z-10 flex items-center justify-between text-xs font-mono text-slate-400">
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00F0FF]" />
-              <span className="tracking-widest uppercase text-slate-300">SHRIDHAR HEGDE // XP</span>
+              <div className="relative flex items-center justify-center">
+                <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping opacity-75 absolute" />
+                <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00F0FF]" />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="tracking-widest uppercase font-bold text-white">
+                  NEXUS LABS
+                </span>
+                <span className="text-cyan-400/60">//</span>
+                <span className="hidden sm:inline text-slate-400 text-[11px] tracking-wider">
+                  ENTERPRISE ARCHITECTURE & AAA GAME TECH
+                </span>
+              </div>
             </div>
 
-            <div className="hidden sm:flex items-center gap-6 text-[11px] text-slate-500">
-              <span>LAT 12.9716° N</span>
-              <span>LON 77.5946° E</span>
-              <span>RENDER ENGINE: WEBGL / LENIS</span>
+            <div className="hidden md:flex items-center gap-6 text-[11px] text-slate-400 font-mono">
+              <span className="px-2 py-0.5 rounded border border-white/10 bg-white/[0.02] text-slate-300">
+                FRAME: 144Hz SYNC
+              </span>
+              <span className="px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-300">
+                P99: &lt; 14ms
+              </span>
+              <span className="text-slate-500">SLA: 99.99%</span>
             </div>
 
             <button
               onClick={handleSkip}
-              className="px-3 py-1 rounded-full border border-white/10 hover:border-cyan-400/40 text-[10px] uppercase tracking-wider text-slate-400 hover:text-cyan-300 transition-all hover:bg-white/[0.04]"
+              className="px-3 py-1.5 rounded-lg border border-white/15 hover:border-cyan-400 text-[10px] uppercase font-mono tracking-wider text-slate-300 hover:text-cyan-300 transition-all hover:bg-cyan-500/10 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
             >
-              Skip [ESC]
+              SKIP [ESC]
             </button>
           </div>
 
-          {/* Centerpiece: AUGE-Style Monumental Kinetic Typography */}
-          <div className="relative z-10 my-auto text-center flex flex-col items-center">
-            {/* Sub-label with expanding geometric brackets */}
+          {/* Centerpiece: Monumental Typography & Tactical Brackets */}
+          <div className="relative z-10 my-auto text-center flex flex-col items-center max-w-4xl mx-auto px-4">
+            {/* Tactical Category Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 mb-6 text-xs sm:text-sm font-mono tracking-[0.25em] text-cyan-400 uppercase"
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 mb-5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-cyan-500/40 text-[11px] sm:text-xs font-mono tracking-[0.22em] text-cyan-300 uppercase shadow-[0_0_20px_rgba(0,240,255,0.15)]"
             >
-              <span className="opacity-50">[</span>
-              <span>DIGITAL ARCHITECTURE & AI</span>
-              <span className="opacity-50">]</span>
+              <span className="text-cyan-400 font-bold">&gt;&gt;</span>
+              <span>PRINCIPAL SYSTEMS ARCHITECT & REAL-TIME ENGINE DEV</span>
+              <span className="text-cyan-400 font-bold">&lt;&lt;</span>
             </motion.div>
 
-            {/* Huge Display Name Letters Reveal */}
-            <div className="flex items-center justify-center overflow-hidden py-2 px-4">
-              {nameLetters.map((letter, i) => (
+            {/* Giant Monolithic Name Reveal */}
+            <div className="flex items-center justify-center flex-wrap overflow-hidden py-1">
+              {nameLetters.map((char, i) => (
                 <motion.span
                   key={i}
-                  initial={{ y: '110%', opacity: 0, rotateZ: 4 }}
-                  animate={{ y: '0%', opacity: 1, rotateZ: 0 }}
+                  initial={{ y: '100%', opacity: 0 }}
+                  animate={{ y: '0%', opacity: 1 }}
                   transition={{
-                    duration: 0.7,
-                    delay: 0.15 + i * 0.05,
+                    duration: 0.5,
+                    delay: 0.08 + i * 0.02,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="inline-block text-5xl sm:text-7xl md:text-9xl font-black tracking-tight sm:tracking-normal text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400 drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)]"
+                  className={`inline-block text-4xl sm:text-6xl md:text-8xl font-black tracking-tight transform-gpu ${
+                    char === ' '
+                      ? 'w-3 sm:w-6'
+                      : 'text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400 drop-shadow-[0_8px_30px_rgba(0,0,0,0.9)]'
+                  }`}
                 >
-                  {letter}
+                  {char}
                 </motion.span>
               ))}
             </div>
 
-            {/* Subtitle with Character Split */}
+            {/* Sub-Headline: Corporate High-Octane Mission */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="mt-4 sm:mt-6 text-slate-400 text-xs sm:text-base font-medium max-w-md tracking-widest uppercase"
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="mt-5 text-slate-300 text-xs sm:text-sm md:text-base font-medium tracking-[0.16em] uppercase max-w-2xl text-center leading-relaxed"
             >
-              Engineering High-Throughput Distributed Systems & Multi-LLM Pipelines
+              Architecting Mission-Critical Distributed Backends & AAA Real-Time Interactive Worlds
             </motion.p>
+
+            {/* Tactical Gaming Metric Badges */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55, duration: 0.4 }}
+              className="mt-7 hidden sm:flex items-center gap-3 text-[11px] font-mono text-slate-400"
+            >
+              <span className="px-2.5 py-1 rounded bg-[#090D16] border border-white/10 text-slate-300">
+                ENTERPRISE MICROSERVICES
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="px-2.5 py-1 rounded bg-[#090D16] border border-cyan-500/30 text-cyan-300">
+                CUSTOM WEBGL / GLSL
+              </span>
+              <span className="text-white/20">•</span>
+              <span className="px-2.5 py-1 rounded bg-[#090D16] border border-emerald-500/30 text-emerald-300">
+                ANTI-CHEAT & FORENSIC AI
+              </span>
+            </motion.div>
           </div>
 
-          {/* Bottom Telemetry & Progress Gauge */}
-          <div className="relative z-10 flex flex-col gap-3">
+          {/* Bottom Telemetry HUD: Real-time Status & High-Speed Gauge */}
+          <div className="relative z-10 flex flex-col gap-3 max-w-4xl mx-auto w-full">
             <div className="flex items-end justify-between font-mono">
               <div className="space-y-1">
-                <span className="text-[10px] text-cyan-400/80 uppercase tracking-widest block">
-                  Status Feedback
+                <span className="text-[10px] text-cyan-400 uppercase tracking-widest block font-bold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  REAL-TIME TELEMETRY FEED
                 </span>
-                <span className="text-xs sm:text-sm text-slate-200 tracking-wide">
+                <span className="text-xs sm:text-sm text-slate-200 tracking-wide font-medium">
                   {statusText}
                 </span>
               </div>
 
-              {/* Big AUGE Style Percentage Counter */}
+              {/* High-Precision Numeric Counter */}
               <div className="text-right">
                 <span className="text-3xl sm:text-5xl font-black font-mono tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-white">
                   {String(progress).padStart(3, '0')}
                 </span>
-                <span className="text-cyan-400 font-mono text-sm ml-1">%</span>
+                <span className="text-cyan-400 font-mono text-sm ml-1 font-bold">%</span>
               </div>
             </div>
 
-            {/* Glowing Dual Gradient Loading Track */}
-            <div className="relative h-[3px] w-full bg-white/10 rounded-full overflow-hidden">
-              <motion.div
-                className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400 shadow-[0_0_12px_#00F0FF]"
+            {/* Laser Progress Gauge */}
+            <div className="relative h-[4px] w-full bg-white/10 rounded-full overflow-hidden">
+              <div
+                className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400 shadow-[0_0_16px_#00F0FF] rounded-full transition-all duration-75 ease-out"
                 style={{ width: `${progress}%` }}
-                transition={{ ease: 'linear' }}
               />
+            </div>
+
+            {/* Quick Status Sub-Bar */}
+            <div className="flex justify-between text-[10px] font-mono text-slate-500 pt-0.5">
+              <span>STATUS: NOMINAL</span>
+              <span className="hidden sm:inline">BUFFER: 144Hz LOCK</span>
+              <span>CLICK OR PRESS ESC TO ENTER</span>
             </div>
           </div>
         </motion.div>
@@ -218,3 +298,5 @@ export const AugeIntro: React.FC<AugeIntroProps> = ({ onComplete }) => {
     </AnimatePresence>
   );
 };
+
+export default AugeIntro;

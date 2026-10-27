@@ -19,12 +19,12 @@ export const ScrollNumberMarquee: React.FC = () => {
   const x2 = useTransform(smooth, [0, 1], ['-25%', '0%']);
 
   const stats1 = [
-    '8.31 CGPA', '64.5K LOC', '6-TIER AI', 'EXPRESS 5',
-    '8.31 CGPA', '64.5K LOC', '6-TIER AI', 'EXPRESS 5',
+    '< 14ms NETCODE', '250K+ LOC', '99.99% SLA', '144 FPS WEBGL',
+    '< 14ms NETCODE', '250K+ LOC', '99.99% SLA', '144 FPS WEBGL',
   ];
   const stats2 = [
-    'VERIPROOF', 'YOLOV10', 'REACT 18', 'MEDIAPIPE',
-    'VERIPROOF', 'YOLOV10', 'REACT 18', 'MEDIAPIPE',
+    'VERIPROOF ENTERPRISE', 'GLSL SHADERS', 'DISTRIBUTED MESH', 'ZERO-TRUST RBAC',
+    'VERIPROOF ENTERPRISE', 'GLSL SHADERS', 'DISTRIBUTED MESH', 'ZERO-TRUST RBAC',
   ];
 
   return (

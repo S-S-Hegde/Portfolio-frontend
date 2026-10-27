@@ -94,6 +94,17 @@ const AppContent: React.FC = () => {
     };
   }, []);
 
+  // Lock scroll and pause Lenis during intro to prevent any frame drops or layout thrashing
+  useEffect(() => {
+    if (showIntro) {
+      document.body.style.overflow = 'hidden';
+      if (lenisRef.current) lenisRef.current.stop();
+    } else {
+      document.body.style.overflow = '';
+      if (lenisRef.current) lenisRef.current.start();
+    }
+  }, [showIntro]);
+
   // Smooth reset to top on route change
   useEffect(() => {
     if (lenisRef.current) {

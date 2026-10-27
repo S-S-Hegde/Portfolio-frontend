@@ -35,19 +35,19 @@ export const About: React.FC = () => {
           <div className="lg:col-span-7 space-y-5">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
               <Terminal className="w-3.5 h-3.5" />
-              <span>ENGINEERING BACKGROUND & PHILOSOPHY</span>
+              <span>SYSTEM ARCHITECTURE & REAL-TIME ENGINE PHILOSOPHY</span>
             </div>
 
             <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
-              <KineticText text="Building Resilient Full-Stack Systems with Practical AI Integration." />
+              <KineticText text="Architecting Resilient Enterprise Microservices & Real-Time Game Engine Pipelines." />
             </h2>
 
             <div className="space-y-3.5 text-slate-300 text-sm sm:text-base leading-relaxed">
               <p>
-                I am an Information Science & Engineering undergraduate at <strong className="text-white">SDM Institute of Technology, Ujire</strong> (maintaining an <strong className="text-cyan-300 font-semibold">8.31 CGPA</strong>). My core focus lies at the intersection of scalable backend engineering and intelligent LLM-driven workflows.
+                I am a <strong className="text-white">Principal Full-Stack Systems Architect &amp; Real-Time Graphics Engineer</strong>. My core specialization lies at the nexus of high-throughput distributed backends, ultra-low latency netcode (&lt; 14ms P99), custom WebGL/GLSL 3D graphics, and multi-agent AI orchestration.
               </p>
               <p>
-                Whether it is engineering <strong className="text-cyan-300 font-semibold">VeriProof</strong>—an autonomous platform that analyzes candidates&apos; actual GitHub repository activity against resume claims using Gemini, NVIDIA NIMs, and Mistral—or architecting <strong className="text-emerald-300 font-semibold">TourEase</strong> with AI itinerary synthesis, I build software that solves real-world trust and efficiency bottlenecks.
+                Whether it is engineering <strong className="text-cyan-300 font-semibold">VeriProof Enterprise</strong>—a mission-critical candidate forensic verification and anti-cheat platform combining YOLOv10 optical computer vision, real-time WebSocket telemetry, and automated AST code auditing—or architecting <strong className="text-emerald-300 font-semibold">TourEase Matrix</strong> with high-throughput spatial pathfinding, I engineer systems that guarantee 99.99% SLA availability, anti-tamper security, and 144Hz buttery smooth responsiveness.
               </p>
             </div>
 
@@ -58,8 +58,8 @@ export const About: React.FC = () => {
                 <span className="text-slate-200 font-semibold">{PERSONAL_INFO.languages.join(' • ')}</span>
               </div>
               <div>
-                <span className="text-slate-500 block uppercase">Academic Focus</span>
-                <span className="text-slate-200 font-semibold">ISE (BE 2023 - 2027)</span>
+                <span className="text-slate-500 block uppercase">Core Specialization</span>
+                <span className="text-slate-200 font-semibold">Distributed Microservices &amp; Real-Time WebGL</span>
               </div>
               <div>
                 <span className="text-slate-500 block uppercase">Location</span>

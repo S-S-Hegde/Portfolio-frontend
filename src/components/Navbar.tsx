@@ -66,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
               {PERSONAL_INFO.shortName}
             </span>
             <span className="text-[10px] font-mono text-cyan-400/80 -mt-0.5">
-              Full-Stack & AI Systems
+              Principal Architect &amp; Game Tech
             </span>
           </div>
         </Link>
@@ -181,7 +181,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
               </NavLink>
             ))}
             <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-slate-400 font-mono">
-              <span>CGPA: 8.31 / 10 @ SDM-IT</span>
+              <span>NEXUS ARCH // 144Hz SYNC</span>
               <Link
                 to="/contact"
                 onClick={() => {
@@ -190,7 +190,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
                 }}
                 className="text-cyan-400 font-bold"
               >
-                Hire Shridhar →
+                Executive Dispatch →
               </Link>
             </div>
           </motion.div>

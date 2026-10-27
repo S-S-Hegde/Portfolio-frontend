@@ -81,8 +81,8 @@ export const Home: React.FC<HomeProps> = ({ onSelectProject }) => {
             {
               to: '/education',
               icon: GraduationCap,
-              title: 'SDM-IT & Certs',
-              desc: '8.31 CGPA, IIT Kanpur NPTEL Elite & Infosys Springboard certifications.',
+              title: 'Credentials & Mastery',
+              desc: 'IIT Kanpur Systems Elite, Enterprise Architecture & Advanced Engineering Certifications.',
               color: '#A855F7',
               glare: 'rgba(168, 85, 247, 0.3)',
               hoverBorder: 'hover:border-purple-500/40',
@@ -94,8 +94,8 @@ export const Home: React.FC<HomeProps> = ({ onSelectProject }) => {
             {
               to: '/terminal',
               icon: TerminalIcon,
-              title: 'CLI Console',
-              desc: 'Run interactive developer commands, matrix mode & inspect system state.',
+              title: 'CLI Tactical Terminal',
+              desc: 'Execute real-time engine commands, inspect netcode state & matrix telemetry.',
               color: '#10B981',
               glare: 'rgba(16, 185, 129, 0.3)',
               hoverBorder: 'hover:border-emerald-500/40',
@@ -107,7 +107,7 @@ export const Home: React.FC<HomeProps> = ({ onSelectProject }) => {
             {
               to: '/contact',
               icon: Mail,
-              title: 'Connect Hub',
+              title: 'Executive Briefing',
               desc: 'Direct email, phone copy with confetti celebrations, and social profiles.',
               color: '#38BDF8',
               glare: 'rgba(56, 189, 248, 0.3)',

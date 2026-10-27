@@ -28,7 +28,7 @@ export const CustomCursor: React.FC = () => {
       let targetX = e.clientX;
       let targetY = e.clientY;
 
-      const target = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
+      const target = (e.target as HTMLElement | null);
 
       // Magnetic snapping if element has data-magnetic="true"
       if (target) {

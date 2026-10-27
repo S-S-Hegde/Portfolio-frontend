@@ -13,11 +13,11 @@ import { TiltCard } from './TiltCard';
 import { KineticText } from './KineticText';
 
 const ROLES = [
-  'Full-Stack Web Developer',
-  'AI Systems Integrator',
-  'Backend & API Specialist',
-  'MERN Stack Architect',
-  'LLM Pipeline Engineer',
+  'Enterprise Systems Architect',
+  'Real-Time Game Tech & WebGL Engineer',
+  'Principal Full-Stack Developer',
+  'Ultra-Low Latency Netcode Specialist',
+  'Multi-Agent AI Systems Engineer',
 ];
 
 export const Hero: React.FC = () => {
@@ -41,9 +41,11 @@ export const Hero: React.FC = () => {
   }, []);
 
   const marqueeItems = [
-    'React.js', 'Node.js', 'Express.js', 'MongoDB', 'Gemini AI',
-    'NVIDIA NIMs', 'Cohere', 'Mistral', 'Grok AI', 'JWT & RBAC',
-    'REST APIs', 'Tailwind CSS', 'TypeScript', 'Java', 'C (IIT Kanpur Elite)',
+    'Enterprise React 18', 'Node.js Distributed Engine', 'WebGL 2.0 / GLSL',
+    'Three.js Game Tech', 'FastAPI Microservices', 'MongoDB Atlas Cluster',
+    'Gemini 2.0 Flash AI', 'YOLOv10 Vision AI', 'Sub-14ms Netcode',
+    'Zero-Trust RBAC', 'Docker & Cloud Orchestration', 'TypeScript',
+    'High-Throughput REST APIs', 'Tailwind CSS Design System',
   ];
 
   return (
@@ -66,9 +68,9 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.4 }}
           className="flex items-center gap-2 mb-4"
         >
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#090D16]/80 border border-cyan-500/30 text-cyan-300 text-xs font-mono backdrop-blur-xl shadow-[0_0_20px_rgba(0,240,255,0.15)]">
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#090D16]/90 border border-cyan-500/40 text-cyan-300 text-xs font-mono backdrop-blur-xl shadow-[0_0_20px_rgba(0,240,255,0.2)]">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-            <span className="font-semibold">{PERSONAL_INFO.availability}</span>
+            <span className="font-semibold tracking-wide">ENTERPRISE TACTICAL HUB // ONLINE</span>
           </div>
         </motion.div>
 
@@ -76,7 +78,7 @@ export const Hero: React.FC = () => {
         <div className="space-y-3.5">
           <h1 className="text-3xl sm:text-5xl lg:text-[3.65rem] font-black tracking-tight leading-[1.12] drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)]">
             <KineticText
-              text="Designing & Engineering Intelligent Full-Stack Platforms."
+              text="Architecting Mission-Critical Enterprise Platforms & Real-Time Cyber Systems."
               as="span"
               wordClassName="bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-200 via-sky-300 to-purple-400"
             />
@@ -85,7 +87,7 @@ export const Hero: React.FC = () => {
           {/* Role flipper */}
           <div className="flex items-center flex-wrap gap-2 text-base sm:text-xl font-mono text-slate-200 min-h-[32px] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             <span className="text-cyan-400 font-bold">&gt;</span>
-            <span className="text-slate-300">I am a </span>
+            <span className="text-slate-300">Role: </span>
             <motion.span
               key={roleIndex}
               initial={{ opacity: 0, y: 8 }}
@@ -100,14 +102,7 @@ export const Hero: React.FC = () => {
 
           {/* Bio */}
           <p className="text-slate-200 text-sm sm:text-base max-w-2xl leading-relaxed pt-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
-            Hi, I&apos;m <strong className="text-white font-bold">{PERSONAL_INFO.name}</strong>.
-            Currently pursuing Information Science & Engineering at{' '}
-            <strong className="text-white font-semibold">
-              SDM Institute of Technology (CGPA 8.31)
-            </strong>
-            . Creator of <strong className="text-cyan-300 font-semibold">VeriProof</strong> (forensic
-            AI candidate verification platform) and{' '}
-            <strong className="text-emerald-300 font-semibold">TourEase</strong>.
+            Hi, I&apos;m <strong className="text-white font-bold">{PERSONAL_INFO.shortName}</strong> — Lead Full-Stack Architect &amp; Interactive Graphics Engineer. Bridging mission-critical enterprise backends with high-performance real-time gaming engines, custom WebGL/GLSL shaders, and autonomous AI systems. Architect of <strong className="text-cyan-300 font-semibold">VeriProof Enterprise</strong> (candidate forensic verification &amp; anti-cheat engine) and <strong className="text-emerald-300 font-semibold">TourEase Matrix</strong>.
           </p>
         </div>
 
@@ -125,7 +120,7 @@ export const Hero: React.FC = () => {
             data-cursor-text="EXPLORE"
             className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-[0_0_25px_rgba(0,240,255,0.3)] hover:scale-[1.02]"
           >
-            <span>Explore Case Studies</span>
+            <span>Explore System Architectures</span>
             <ArrowRight className="w-4 h-4 stroke-[2.5]" />
           </Link>
 
@@ -137,7 +132,7 @@ export const Hero: React.FC = () => {
             className="px-5 py-3.5 rounded-xl bg-[#0B0F18]/85 hover:bg-[#0E1320] border border-white/15 hover:border-cyan-500/50 text-slate-100 hover:text-cyan-300 font-mono text-xs sm:text-sm flex items-center gap-2 transition-all backdrop-blur-xl shadow-lg"
           >
             <TerminalIcon className="w-4 h-4 text-cyan-400" />
-            <span>Launch CLI Console</span>
+            <span>Launch CLI Tactical Console</span>
           </Link>
 
           <Link
@@ -148,7 +143,7 @@ export const Hero: React.FC = () => {
             className="px-5 py-3.5 rounded-xl bg-[#0B0F18]/85 hover:bg-[#0E1320] border border-white/15 text-slate-100 hover:text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all backdrop-blur-xl shadow-lg"
           >
             <Mail className="w-4 h-4 text-purple-400" />
-            <span>Get In Touch</span>
+            <span>Executive Briefing</span>
           </Link>
 
           <div className="flex items-center gap-2 pl-1">
