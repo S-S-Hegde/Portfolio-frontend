@@ -43,12 +43,6 @@ const ProjectScrollCard: React.FC<{
       }}
       className={`relative group flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-6 lg:gap-10 items-center p-6 sm:p-8 lg:p-10 rounded-3xl bg-[#080C14]/80 border border-white/[0.07] hover:border-white/20 backdrop-blur-xl transition-all duration-500 hover:shadow-[0_20px_80px_rgba(0,0,0,0.6)] overflow-hidden`}
     >
-      {/* Accent top border line */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[2px] opacity-60 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: `linear-gradient(90deg, transparent 0%, ${project.accentColor} 40%, transparent 100%)` }}
-      />
-
       {/* Ambient glow blob */}
       <motion.div
         className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"

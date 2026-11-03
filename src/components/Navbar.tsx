@@ -46,7 +46,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
 
   const navLinks = [
     { label: 'Overview', path: '/' },
-    { label: 'VeriProof', path: '/#veriproof' },
     { label: 'Projects', path: '/projects' },
     { label: 'Skills', path: '/skills' },
     { label: 'Education', path: '/education' },

@@ -45,10 +45,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) =
   };
 
   const getProjectAccent = (id: string, defaultColor: string) => {
-    if (id === 'veriproof') return '#CCFF00';
+    if (id === 'veriproof') return '#38BDF8';
     if (id === 'tourease') return '#10B981';
     if (id === 'expense-tracker') return '#F59E0B';
-    return defaultColor || '#CCFF00';
+    return defaultColor || '#38BDF8';
   };
 
   return (
@@ -161,14 +161,6 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) =
                 cursorText="CASE STUDY"
                 className="group relative rounded-3xl frosted-glass hover:border-white/20 p-6 sm:p-8 md:p-10 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden"
               >
-                {/* Hairline top accent gradient rim */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-[2px] transition-all duration-300 opacity-80 group-hover:opacity-100"
-                  style={{
-                    background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
-                  }}
-                />
-
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                   {/* Left Column: Project Narrative & Technical Highlights (7 Cols) */}
                   <div className="lg:col-span-7 space-y-6">
@@ -215,7 +207,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onSelectProject }) =
                     {/* Core Features / Bullet Highlights */}
                     <div className="space-y-2.5">
                       <h3 className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-accent-lime" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-slate-400" />
                         <span>Core Engineering Architecture</span>
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">

@@ -42,11 +42,32 @@ const AugeSuspenseFallback: React.FC = () => (
   </div>
 );
 
+const SESSION_INTRO_KEY = 'shridhar-portfolio-intro-seen';
+
+const isIntroSeen = () => {
+  try {
+    return sessionStorage.getItem(SESSION_INTRO_KEY) === 'true';
+  } catch {
+    return false;
+  }
+};
+
+const markIntroSeen = () => {
+  try {
+    sessionStorage.setItem(SESSION_INTRO_KEY, 'true');
+  } catch {}
+};
+
 const AppContent: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    if (isIntroSeen()) return false;
+    markIntroSeen();
+    return true;
+  });
   const location = useLocation();
   const lenisRef = useRef<Lenis | null>(null);
 

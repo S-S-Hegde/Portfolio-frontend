@@ -106,15 +106,6 @@ export const AugeShowcaseReel: React.FC<AugeShowcaseReelProps> = ({ onSelectProj
                     : 'bg-[#080B12]/80 border-white/10 hover:border-white/25 opacity-85 hover:opacity-100 hover:shadow-[0_10px_35px_rgba(0,0,0,0.5)]'
                 }`}
               >
-                {/* Top Accent Gradient Rim */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-[2.5px] transition-opacity duration-300"
-                  style={{
-                    background: `linear-gradient(90deg, transparent, ${project.accentColor}, transparent)`,
-                    opacity: isSpotlight ? 1 : 0.4,
-                  }}
-                />
-
                 <div className="space-y-4">
                   {/* AUGE Visual Cover Mockup */}
                   <div className="overflow-hidden rounded-2xl">

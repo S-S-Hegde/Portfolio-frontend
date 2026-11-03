@@ -15,41 +15,41 @@ export const ProjectMockupVisual: React.FC<ProjectMockupVisualProps> = ({
 }) => {
   if (projectId === 'veriproof') {
     return (
-      <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden bg-[#050811] border border-cyan-500/20 group-hover:border-cyan-500/50 transition-all duration-500 flex flex-col justify-between p-3.5 select-none">
-        {/* Ambient Glow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/15 via-blue-600/10 to-transparent pointer-events-none" />
+      <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden bg-[#0A0D15]/95 border border-white/10 group-hover:border-white/25 transition-all duration-500 flex flex-col justify-between p-3.5 select-none shadow-inner">
+        {/* Ambient Subtle Depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/40 pointer-events-none" />
         <div
-          className="absolute inset-0 opacity-[0.07]"
+          className="absolute inset-0 opacity-[0.05]"
           style={{
-            backgroundImage: 'radial-gradient(#00F0FF 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px)',
             backgroundSize: '16px 16px',
           }}
         />
 
         {/* Top Visual HUD */}
         <div className="relative z-10 flex items-center justify-between text-[10px] font-mono">
-          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-            <span>ACE VISION GUARD // 30 FPS</span>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-slate-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            <span className="tracking-wider">ACE VISION GUARD // 30 FPS</span>
           </div>
-          <span className="text-slate-400 font-mono">VP-TOKEN: #892F</span>
+          <span className="text-slate-500 font-mono text-[9px] tracking-wider">VP-TOKEN: #892F</span>
         </div>
 
         {/* Center Forensic Reticle & Biometric Wireframe */}
         <div className="relative z-10 flex items-center justify-center my-auto">
-          <div className="relative w-24 h-24 rounded-full border border-cyan-500/40 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+          <div className="relative w-24 h-24 rounded-full border border-white/15 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
             {/* Rotating reticle ring */}
-            <div className="absolute inset-0 rounded-full border-t-2 border-b-2 border-cyan-400 animate-spin" style={{ animationDuration: '8s' }} />
-            <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center backdrop-blur-md">
-              <ShieldCheck className="w-8 h-8 text-cyan-300 drop-shadow-[0_0_10px_#00F0FF]" />
+            <div className="absolute inset-0 rounded-full border-t border-b border-white/40 animate-spin" style={{ animationDuration: '8s' }} />
+            <div className="w-16 h-16 rounded-2xl bg-white/[0.04] border border-white/15 flex items-center justify-center backdrop-blur-md shadow-lg">
+              <ShieldCheck className="w-8 h-8 text-white/90 drop-shadow-[0_0_8px_rgba(255,255,255,0.25)]" />
             </div>
           </div>
         </div>
 
         {/* Bottom Telemetry Bar */}
-        <div className="relative z-10 flex items-center justify-between text-[10px] font-mono bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-xl border border-white/10">
-          <span className="text-slate-300">TRUST SCORE: 98.4%</span>
-          <span className="text-emerald-400 font-bold flex items-center gap-1">
+        <div className="relative z-10 flex items-center justify-between text-[10px] font-mono bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/10">
+          <span className="text-slate-300 tracking-wider">TRUST SCORE: 98.4%</span>
+          <span className="text-emerald-400 font-bold flex items-center gap-1.5">
             <Activity className="w-3 h-3" /> VERIFIED
           </span>
         </div>
